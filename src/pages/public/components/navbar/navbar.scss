@@ -68,6 +68,90 @@
     }
 }
 
+.navigation-modal
+{
+    display: flex !important;
+    flex-direction: row;
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+    background-color: rgba(#000, 0);
+
+    .modal-body
+    {
+        display: flex;
+        flex-direction: column;
+        gap: 3em;
+        flex: 0 1 250px;
+        padding: 1.5em;
+        box-sizing: border-box;
+        background-color: #fff;
+
+        header
+        {
+            .navigation-close
+            {
+                cursor: pointer;
+            }
+        }
+
+        section
+        {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5em;
+
+            .modal-link
+            {
+                font-weight: 700;
+                text-decoration: none;
+                color: rgb(30, 30, 30);
+            }
+        }
+    }
+}
+
+.navigation-modal.open
+{
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    transition: background-color 0.25s;
+
+    .modal-body
+    {
+        transform: translate(0, 0);
+        transition: transform 0.25s;
+    }
+}
+
+.navigation-modal.closing
+{
+    left: 0;
+    background-color: rgba(0, 0, 0, 0);
+    transition: background-color 0.25s;
+
+    .modal-body
+    {
+        transform: translate(-250px, 0);
+        transition: transform 0.25s;
+    }
+}
+
+.navigation-modal.closed
+{
+    left: -100%;
+    background-color: rgba(0, 0, 0, 0);
+
+    .modal-body
+    {
+        transform: translate(-250px, 0);
+    }
+}
+
 @media (min-width: 1024px)
 {
     .main-navbar
@@ -92,6 +176,17 @@
             .navigation-search
             {
                 display: flex;
+            }
+        }
+
+        .navigation-modal
+        {
+            left: -100%;
+            background-color: rgba(0, 0, 0, 0);
+
+            .modal-body
+            {
+                transform: translate(-250px, 0);
             }
         }
     }
