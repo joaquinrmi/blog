@@ -61,6 +61,26 @@ const Navbar: React.FunctionComponent<Props> = (props) =>
         {
             searchModal.open();
         };
+
+        const closeSearchModal = () =>
+        {
+            searchModal.classList.remove("opened");
+            searchModal.classList.add("closing");
+            setTimeout(() =>
+            {
+                searchModal.classList.remove("closing");
+                searchModal.classList.add("closed");
+            },
+            250);
+        };
+
+        searchModal.onclick = (ev) =>
+        {
+            if(ev.target === searchModal)
+            {
+                closeSearchModal();
+            }
+        };
     });
     
     return <nav className="main-navbar">
@@ -108,8 +128,9 @@ const Navbar: React.FunctionComponent<Props> = (props) =>
             </div>
         </Modal>
 
-        <Modal id="search-modal">
+        <Modal id="search-modal" className="search-modal">
             <div className="modal-body">
+                <input type="text" className="search-input" placeholder="Buscar..." />
             </div>
         </Modal>
     </nav>;
