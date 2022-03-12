@@ -5,7 +5,7 @@
     align-items: center;
     gap: 1em;
     width: 100%;
-    padding: 4em 2em;
+    padding: 4em 2em 8em 2em;
     box-sizing: border-box;
 
     h1
@@ -22,5 +22,76 @@
         margin: 0;
         font-size: 1.5em;
         font-weight: normal;
+    }
+}
+
+$left-section-width: 200px;
+
+.main-content
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 0 2em;
+    box-sizing: border-box;
+
+    .main-body-container
+    {
+        flex: 1 1 100%;
+        display: flex;
+        flex-direction: row;
+        gap: 4em;
+        max-width: 1024px;
+
+        .main-left-section
+        {
+            flex: 0 0 $left-section-width;
+            box-sizing: border-box;
+
+            .about-author
+            {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                gap: 1em;
+
+                .photo-container
+                {
+                    overflow: hidden;
+                    height: $left-section-width;
+                    border-radius: 300px;
+                    background-color: rgb(70, 70, 70);
+                }
+
+                .author-information
+                {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-start;
+                    align-items: center;
+                    gap: 0.5em;
+                    text-align: center;
+
+                    .name
+                    {
+                        font-size: 1em;
+                        font-weight: 700;
+                        color:rgb(30, 30, 30);
+                    }
+
+                    .bio
+                    {
+                        font-size: 0.8em;
+                        color: rgb(70, 70, 70);
+                    }
+                }
+            }
+        }
+
+        .main-right-section
+        {
+            flex: 0 1 100%;
+            box-sizing: border-box;
+        }
     }
 }
