@@ -5,8 +5,10 @@
     align-items: center;
     gap: 1em;
     width: 100%;
-    padding: 4em 2em 8em 2em;
+    padding: 4em 2em 4em 2em;
+    margin: 0 0 4em 0;
     box-sizing: border-box;
+    background-color: #fff;
 
     h1
     {
@@ -25,7 +27,7 @@
     }
 }
 
-$left-section-width: 200px;
+$left-section-width: 300px;
 
 .main-content
 {
@@ -56,12 +58,18 @@ $left-section-width: 200px;
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-start;
+                align-items: center;
                 gap: 1em;
+                padding: 2em;
+                box-sizing: border-box;
+                background-color: rgb(249, 249, 249);
+                border-radius: 6px;
 
                 .photo-container
                 {
                     overflow: hidden;
-                    height: $left-section-width;
+                    width: 200px;
+                    height: 200px;
                     border-radius: 300px;
                     background-color: rgb(70, 70, 70);
                 }
@@ -95,9 +103,13 @@ $left-section-width: 200px;
                 display: flex;
                 flex-direction: column;
                 gap: 1em;
+                padding: 2em;
+                box-sizing: border-box;
+                background-color: rgb(249, 249, 249);
+                border-radius: 6px;
 
                 .title
-                {
+                {   
                     margin: 0;
                     font-size: 1.3em;
                     color:rgb(30, 30, 30);
@@ -118,13 +130,13 @@ $left-section-width: 200px;
                             padding: 0.75em 0 0.75em 0.3em;
                             text-decoration: none;
                             font-weight: 700;
-                            border-bottom: 1px solid rgb(240, 240, 240);
+                            border-bottom: 1px solid rgb(221, 221, 221);
                             color:rgb(70, 70, 70);
                         }
 
                         a:hover
                         {
-                            background-color: rgb(240, 240, 240);
+                            background-color: rgb(221, 221, 221);
                         }
                     }
                 }
