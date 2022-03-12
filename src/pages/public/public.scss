@@ -45,6 +45,9 @@ $left-section-width: 200px;
 
         .main-left-section
         {
+            display: flex;
+            flex-direction: column;
+            gap: 3em;
             flex: 0 0 $left-section-width;
             box-sizing: border-box;
 
@@ -83,6 +86,46 @@ $left-section-width: 200px;
                     {
                         font-size: 0.8em;
                         color: rgb(70, 70, 70);
+                    }
+                }
+            }
+
+            .aside-categories
+            {
+                display: flex;
+                flex-direction: column;
+                gap: 1em;
+
+                .title
+                {
+                    margin: 0;
+                    font-size: 1.3em;
+                    color:rgb(30, 30, 30);
+                }
+
+                .categories-list
+                {
+                    margin: 0;
+                    padding: 0;
+                    list-style: none;
+
+                    .aside-category-item
+                    {
+                        a
+                        {
+                            display: block;
+                            width: 100%;
+                            padding: 0.75em 0 0.75em 0.3em;
+                            text-decoration: none;
+                            font-weight: 700;
+                            border-bottom: 1px solid rgb(240, 240, 240);
+                            color:rgb(70, 70, 70);
+                        }
+
+                        a:hover
+                        {
+                            background-color: rgb(240, 240, 240);
+                        }
                     }
                 }
             }
