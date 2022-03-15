@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar, { Section } from "./components/navbar";
+import PostList from "./components/post_list/";
 
 import "./public.scss";
 
@@ -62,9 +63,34 @@ const Public: React.FunctionComponent<Props> = (props) =>
                 </aside>
 
                 <section className="main-right-section">
+                    <PostList />
                 </section>
             </div>
         </section>
+
+        <footer className="main-footer">
+            <div className="footer-content">
+                <section className="footer-info-container">
+                    <h3 className="footer-title">
+                        Información
+                    </h3>
+
+                    <span>
+                        Sitio web desarrollado por Joaquín Ruaimi.
+                    </span>
+
+                    <div className="contact-container">
+                        <a href="https://www.linkedin.com/in/joaquin-ruaimi-3381a1201/" target="_blank" className="contact-item"><i className="fab fa-linkedin-in" aria-hidden="true"></i>
+                        </a><a href="https://github.com/joaquinrmi" target="_blank" className="contact-item"><i className="fab fa-github" aria-hidden="true"></i>
+                        </a><a href="mailto:joaquinruaimi@gmail.com" target="_blank" className="contact-item"><i className="far fa-envelope" aria-hidden="true"></i></a>
+                    </div>
+                </section>                
+
+                <span>
+                    Icons by <a href="https://fontawesome.com" target="_blank">Font Awesome</a>.
+                </span>
+            </div>
+        </footer>
     </>;
 };
 
