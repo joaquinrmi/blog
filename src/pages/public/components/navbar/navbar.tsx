@@ -86,7 +86,7 @@ const Navbar: React.FunctionComponent<Props> = (props) =>
     return <nav className="main-navbar">
         <div className="navigation-container">
             <div id="open-navigation" className="navigation-button" role="button">
-                <i className="fi fi-rr-menu-burger"></i>
+                <i className="fa-solid fa-bars"></i>
             </div>
 
             <div className="navigation-list">
@@ -105,7 +105,7 @@ const Navbar: React.FunctionComponent<Props> = (props) =>
             </div>
 
             <div id="nav-search-button" className="navigation-search" role="button">
-                <i className="fi fi-rr-search"></i>
+                <i className="fa-solid fa-magnifying-glass"></i>
             </div>
         </div>
 
@@ -113,7 +113,7 @@ const Navbar: React.FunctionComponent<Props> = (props) =>
             <div className="modal-body">
                 <header>
                     <div id="navigation-close" className="navigation-close" role="button">
-                        <i className="fi fi-rr-cross"></i>
+                        <i className="fa-solid fa-xmark"></i>
                     </div>
                 </header>
 
