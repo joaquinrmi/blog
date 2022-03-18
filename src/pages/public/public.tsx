@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Routes, Route, Link, useParams } from "react-router-dom";
 import Navbar, { Section } from "./components/navbar";
+import Post from "./components/post";
 import PostList from "./components/post_list/";
 
 import "./public.scss";
@@ -63,7 +64,15 @@ const Public: React.FunctionComponent<Props> = (props) =>
                 </aside>
 
                 <section className="main-right-section">
-                    <PostList />
+                    <Routes>
+                        <Route path="/" element={
+                            <PostList />
+                        } />
+
+                        <Route path="/post/:post_id" element={
+                            <ShowPost />
+                        } />
+                    </Routes>
                 </section>
             </div>
         </section>
@@ -80,18 +89,25 @@ const Public: React.FunctionComponent<Props> = (props) =>
                     </span>
 
                     <div className="contact-container">
-                        <a href="https://www.linkedin.com/in/joaquin-ruaimi-3381a1201/" target="_blank" className="contact-item"><i className="fab fa-linkedin-in" aria-hidden="true"></i>
-                        </a><a href="https://github.com/joaquinrmi" target="_blank" className="contact-item"><i className="fab fa-github" aria-hidden="true"></i>
-                        </a><a href="mailto:joaquinruaimi@gmail.com" target="_blank" className="contact-item"><i className="far fa-envelope" aria-hidden="true"></i></a>
+                        <a href="https://www.linkedin.com/in/joaquin-ruaimi-3381a1201/" target="_blank" rel="noreferrer" className="contact-item"><i className="fab fa-linkedin-in" aria-hidden="true"></i>
+                        </a><a href="https://github.com/joaquinrmi" target="_blank" rel="noreferrer" className="contact-item"><i className="fab fa-github" aria-hidden="true"></i>
+                        </a><a href="mailto:joaquinruaimi@gmail.com" target="_blank" rel="noreferrer" className="contact-item"><i className="far fa-envelope" aria-hidden="true"></i></a>
                     </div>
                 </section>                
 
                 <span>
-                    Icons by <a href="https://fontawesome.com" target="_blank">Font Awesome</a>.
+                    Icons by <a href="https://fontawesome.com" target="_blank" rel="noreferrer">Font Awesome</a>.
                 </span>
             </div>
         </footer>
     </>;
+};
+
+const ShowPost: React.FunctionComponent = () =>
+{
+    let { post_id } = useParams();
+
+    return <Post postId={post_id as string} />
 };
 
 export default Public;
