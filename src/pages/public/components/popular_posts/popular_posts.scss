@@ -1,0 +1,74 @@
+.popular-posts
+{
+    display: flex;
+    flex-direction: column;
+
+    ul.popular-post-list
+    {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8em;
+        list-style: none;
+        padding: 0;
+
+        li.popular-item
+        {
+            display: flex;
+            flex-direction: column;
+
+            .popular-title
+            {
+                text-decoration: none;
+
+                h4
+                {
+                    margin: 0;
+                    font-weight: 700;
+                    color: rgb(30, 30, 30);
+                }
+            }
+
+            @for $i from 0 through 4
+            {
+                .popular-title.s#{$i + 1}
+                {
+                    h4
+                    {
+                        font-size: (18 - $i) * 1px;
+                    }
+                }
+            }
+
+            .popular-date
+            {
+                font-size: 15px;
+                color: rgb(100, 100, 100);
+            }
+
+            .popular-tags
+            {
+                font-size: 15px;
+
+                .popular-tag
+                {
+                    a
+                    {
+                        text-decoration: none;
+                        color: rgb(100, 100, 100);
+                    }
+
+                    a:hover
+                    {
+                        color:rgb(30, 30, 30);
+                    }
+
+                    .comma
+                    {
+                        color: rgb(30, 30, 30);
+                        margin-right: 0.5em;
+                    }
+                }
+            }
+        }
+    }
+}

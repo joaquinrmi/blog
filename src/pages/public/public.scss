@@ -99,7 +99,7 @@ $left-section-width: 300px;
                 }
             }
 
-            .aside-categories
+            .aside-subsection
             {
                 display: flex;
                 flex-direction: column;
@@ -115,7 +115,10 @@ $left-section-width: 300px;
                     font-size: 1.3em;
                     color:rgb(30, 30, 30);
                 }
+            }
 
+            .aside-categories
+            {
                 .categories-list
                 {
                     margin: 0;

@@ -3,6 +3,7 @@ import { Routes, Route, Link, useParams } from "react-router-dom";
 import Navbar, { Section } from "./components/navbar";
 import Post from "./components/post";
 import PostList from "./components/post_list/";
+import PopularPosts from "./components/popular_posts/";
 
 import "./public.scss";
 
@@ -48,7 +49,7 @@ const Public: React.FunctionComponent<Props> = (props) =>
                         </div>
                     </div>
 
-                    <div className="aside-categories">
+                    <div className="aside-subsection aside-categories">
                         <h3 className="title">Categorías</h3>
                         <ul className="categories-list">
                             {sections.map((section, i) =>
@@ -60,6 +61,10 @@ const Public: React.FunctionComponent<Props> = (props) =>
                                 </li>;
                             })}
                         </ul>
+                    </div>
+
+                    <div className="aside-subsection">
+                        <PopularPosts />
                     </div>
                 </aside>
 
