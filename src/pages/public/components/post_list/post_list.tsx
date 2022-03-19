@@ -15,6 +15,7 @@ const PostList: React.FunctionComponent<Props> = (props) =>
 {
     const [ postDataList, setPostDataList ] = useState<Array<PostCardData>>([
         {
+            id: "string",
             title: "El mundo de los zorros",
             cover: "https://cdn.pixabay.com/photo/2019/10/30/16/19/fox-4589927__340.jpg",
             tags: [
@@ -28,9 +29,9 @@ const PostList: React.FunctionComponent<Props> = (props) =>
                 }
             ],
             contentFragment: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur nobis labore excepturi! Amet deleniti sit sint aperiam ipsum debitis beatae facere voluptatibus distinctio? Autem sed, sapiente illum quidem est repellat.",
-            url: "string",
         },
         {
+            id: "string",
             title: "El mundo de los zorros",
             cover: "https://www.northern-scot.co.uk/_media/img/N1HIOLEM3ZQ1K82I05CK.jpg",
             tags: [
@@ -44,7 +45,6 @@ const PostList: React.FunctionComponent<Props> = (props) =>
                 }
             ],
             contentFragment: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur nobis labore excepturi! Amet deleniti sit sint aperiam ipsum debitis beatae facere voluptatibus distinctio? Autem sed, sapiente illum quidem est repellat.",
-            url: "string",
         }
     ]);
 

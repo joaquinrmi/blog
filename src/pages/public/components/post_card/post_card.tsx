@@ -10,16 +10,16 @@ export interface Props
 
 export interface PostCardData
 {
+    id: string;
     title: string;
     cover: string;
     tags: Array<{ name: string, path: string }>;
     contentFragment: string;
-    url: string;
 }
 
 const PostCard: React.FunctionComponent<Props> = (props) =>
 {
-    return <Link className="post-card" to={props.data.url}>
+    return <Link className="post-card" to={`/post/${props.data.id}`}>
         <div className="card-post-cover" style={{
             backgroundImage: `url(${props.data.cover})`
         }}></div>
