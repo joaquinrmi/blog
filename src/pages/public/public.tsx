@@ -74,8 +74,12 @@ const Public: React.FunctionComponent<Props> = (props) =>
                             <PostList />
                         } />
 
-                        <Route path="/post/:post_id" element={
+                        <Route path="/post/:postId" element={
                             <ShowPost />
+                        } />
+
+                        <Route path="/category/:categoryName" element={
+                            <ShowCategory />
                         } />
                     </Routes>
                 </section>
@@ -110,9 +114,16 @@ const Public: React.FunctionComponent<Props> = (props) =>
 
 const ShowPost: React.FunctionComponent = () =>
 {
-    let { post_id } = useParams();
+    let { postId } = useParams();
 
-    return <Post postId={post_id as string} />
+    return <Post postId={postId as string} />
+};
+
+const ShowCategory: React.FunctionComponent = () =>
+{
+    let { categoryName } = useParams();
+
+    return <PostList tags={[ categoryName as string ]} />
 };
 
 export default Public;
