@@ -78,14 +78,14 @@ const PostList: React.FunctionComponent<Props> = (props) =>
 
             {leftPages.map((value, index) =>
             {
-                return <PageNavigationButton key={`${index}-page`} symbol={`${value}`} />;
+                return <PageNavigationButton key={`${index}-page`} symbol={`${value}`} className="mid-page-nav-button" />;
             })}
 
             <PageNavigationButton symbol={`${page.current}`} focus />
 
             {rightPages.map((value, index) =>
             {
-                return <PageNavigationButton key={`${index}-page`} symbol={`${value}`} />;
+                return <PageNavigationButton key={`${index}-page`} symbol={`${value}`} className="mid-page-nav-button" />;
             })}
 
             {page.last > page.current ? <>
@@ -100,11 +100,12 @@ interface PageNavigationProps
 {
     symbol: string;
     focus?: boolean;
+    className?: string;
 }
 
 const PageNavigationButton: React.FunctionComponent<PageNavigationProps> = (props) =>
 {
-    return <div className={`page-nav-button ${props.focus ? "active" : ""}`}>
+    return <div className={`page-nav-button ${props.className ? props.className : ""} ${props.focus ? "active" : ""}`}>
         {props.symbol}
     </div>;
 };
