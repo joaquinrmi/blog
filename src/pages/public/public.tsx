@@ -58,6 +58,7 @@ const Public: React.FunctionComponent<Props> = (props) =>
                                     <Link to={section.path}>
                                         {section.name}
                                     </Link>
+                                    {i + 1 < sections.length ? <div className="aside-category-separator"></div> : null}
                                 </li>;
                             })}
                         </ul>
