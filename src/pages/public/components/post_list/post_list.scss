@@ -11,6 +11,70 @@ section.post-list
         flex-direction: column;
         justify-content: flex-start;
         gap: 2em;
+
+        .loading-post-card
+        {
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+
+            .loading
+            {
+                background-color: rgb(215, 215, 215);
+                animation-name: loading;
+                animation-duration: 1.25s;
+                animation-iteration-count: infinite;
+                animation-timing-function: linear;
+            }
+
+            .cover
+            {
+                height: 250px;
+            }
+
+            .content
+            {
+                display: flex;
+                flex-direction: column;
+                gap: 1em;
+                flex: 1;
+                padding: 1em;
+                box-sizing: border-box;
+
+                .tags
+                {
+                    display: flex;
+                    flex-direction: row;
+                    gap: 0.5em;
+
+                    span
+                    {
+                        width: 3em;
+                        height: 14px;
+                    }
+                }
+
+                .title
+                {
+                    height: 25px;
+                    margin-bottom: 0.5em;
+                }
+
+                .text
+                {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.5em;
+
+                    span
+                    {
+                        height: 1em;
+                    }
+                }
+            }
+        }
     }
 
     .page-navigation
@@ -54,5 +118,21 @@ section.post-list
     .mid-page-nav-button
     {
         display: flex;
+    }
+
+    section.post-list
+    {
+        .card-post-container
+        {
+            .loading-post-card
+            {
+                flex-direction: row;
+
+                .cover
+                {
+                    flex: 0 0 250px;
+                }
+            }
+        }
     }
 }
