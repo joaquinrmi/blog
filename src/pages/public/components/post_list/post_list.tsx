@@ -97,9 +97,10 @@ const PostList: React.FunctionComponent<Props> = (props) =>
     else
     {
         let leftPages = new Array<number>();
-        for(let i = 0; i < 3 && page.current - i > 1; ++i)
+        const maxElements = page.current > 3 ? 3 : page.current - 1;
+        for(let i = 0; i < maxElements && page.current - i > 1; ++i)
         {
-            leftPages.push(page.current - (i + 1));
+            leftPages.push(page.current - (maxElements - i));
         }
 
         let rightPages = new Array<number>();
