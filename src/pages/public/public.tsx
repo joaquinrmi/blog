@@ -55,7 +55,7 @@ const Public: React.FunctionComponent<Props> = (props) =>
                             {sections.map((section, i) =>
                             {
                                 return <li key={`${i}-cat`} className="aside-category-item">
-                                    <Link to={`/category/${section.path}`}>
+                                    <Link to={section.path === "" ? "/" : `/category/${section.path}`}>
                                         {section.name}
                                     </Link>
                                     {i + 1 < sections.length ? <div className="aside-category-separator"></div> : null}
