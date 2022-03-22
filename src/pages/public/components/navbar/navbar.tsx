@@ -98,7 +98,7 @@ const Navbar: React.FunctionComponent<Props> = (props) =>
                         current = "current";
                     }
 
-                    return <Link key={`link-${index}`} className={`navigation-link ${current}`} to={section.path}>
+                    return <Link key={`link-${index}`} className={`navigation-link ${current}`} to={section.path === "" ? "/" : `/category/${section.path}`}>
                         {section.name}
                     </Link>;
                 })}
