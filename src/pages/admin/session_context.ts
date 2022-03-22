@@ -8,7 +8,8 @@ const SessionContext = React.createContext<UserSession>({
         id: -1,
         username: ""
     },
-    login: (data: AccountData) => {}
+    login: (data: AccountData) => {},
+    logout: () => {}
 });
 
 export default SessionContext;

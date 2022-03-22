@@ -15,6 +15,16 @@ const Admin: React.FunctionComponent = (props) =>
         username: ""
     });
 
+    let content;
+    if(sessionData.logged)
+    {
+        content = <Routes></Routes>;
+    }
+    else
+    {
+        content = <Routes></Routes>;
+    }
+
     return <SessionContext.Provider value={{
         session: sessionData,
         login: (data: AccountData) =>
@@ -24,9 +34,17 @@ const Admin: React.FunctionComponent = (props) =>
                 id: data.id,
                 username: data.username
             });
+        },
+        logout: () =>
+        {
+            setSessionData({
+                logged: false,
+                id: -1,
+                username: ""
+            });
         }
     }}>
-        <Routes></Routes>
+        {content}
     </SessionContext.Provider>;
 };
 

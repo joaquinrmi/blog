@@ -5,4 +5,5 @@ export default interface UserSession
 {
     session: SessionData;
     login(data: AccountData): void;
+    logout(): void;
 }
