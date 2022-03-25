@@ -37,6 +37,18 @@
                 flex-direction: column;
                 gap: 2em;
 
+                .error-message
+                {
+                    display: none;
+                    font-size: 15px;
+                    color: rgb(192, 39, 12);
+                }
+
+                .error-message.show
+                {
+                    display: block;
+                }
+
                 .form-field
                 {
                     display: flex;

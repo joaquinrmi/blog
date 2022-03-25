@@ -42,7 +42,9 @@ const LoginPage: React.FunctionComponent<Props> = (props) =>
 
             if(res.status !== 201)
             {
-                console.error((await res.json()));
+                const errorSpan = document.getElementById("admin-login-error") as HTMLSpanElement;
+                errorSpan.innerText = "Combinación usuario-contraseña incorrecta.";
+                errorSpan.classList.add("show");
             }
             else
             {
@@ -61,6 +63,8 @@ const LoginPage: React.FunctionComponent<Props> = (props) =>
 
             <div className="login-form-container">
                 <form id="admin-login-form" className="login-form">
+                    <span id="admin-login-error" className="error-message"></span>
+
                     <div className="form-field">
                         <span className="label">
                             Nombre de usuario
