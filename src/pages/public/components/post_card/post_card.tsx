@@ -6,6 +6,7 @@ import "./post_card.scss";
 export interface Props
 {
     data: PostCardData;
+    editMode: boolean;
 }
 
 export interface PostCardData
@@ -19,7 +20,7 @@ export interface PostCardData
 
 const PostCard: React.FunctionComponent<Props> = (props) =>
 {
-    return <Link className="post-card" to={`/post/${props.data.id}`}>
+    return <Link className="post-card" to={props.editMode ? `/admin/dashboard/posts/${props.data.id}` : `/post/${props.data.id}`}>
         <div className="card-post-cover" style={{
             backgroundImage: `url(${props.data.cover})`
         }}></div>
