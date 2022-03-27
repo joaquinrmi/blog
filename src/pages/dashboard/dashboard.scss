@@ -1,0 +1,205 @@
+.dashboard
+{
+    display: flex;
+    flex-direction: column;
+    gap: 4em;
+}
+
+.dashboard-header
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 60px;
+    padding: 0 2em;
+    box-sizing: border-box;
+    background-color: transparent;
+
+    .header-content
+    {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex: 1;
+        max-width: 1280px;
+        box-sizing: border-box;
+        user-select: none;
+        cursor: pointer;
+
+        .navigation
+        {
+            flex: 1;
+        }
+    
+        .account-button
+        {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 0.5em;
+            margin-left: auto;
+
+            span
+            {
+                font-size: 15px;
+                color: rgb(30, 30, 30);
+            }
+
+            i
+            {
+                color: rgb(30, 30, 30);
+            }
+        }
+    }
+}
+
+.dashboard-body
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0 2em;
+    box-sizing: border-box;
+
+    .body-content
+    {
+        display: flex;
+        flex-direction: row;
+        gap: 2em;
+        flex: 1;
+        max-width: 1280px;
+
+        .dashboard-aside
+        {
+            display: flex;
+            flex-direction: column;
+            flex: 0 0 280px;
+            align-self: flex-start;
+            background-color: rgb(255, 255, 255);
+            box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+
+            .aside-navigation
+            {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+
+                .nav-item
+                {
+                    a
+                    {
+                        display: flex;
+                        flex-direction: row;
+                        gap: 0.85em;
+                        padding: 1.5em 0 1.5em 4em;
+                        box-sizing: border-box;
+                        font-weight: 700;
+                        text-decoration: none;
+                        color: rgb(30, 30, 30);
+
+                        .icon-container
+                        {
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: left;
+                            width: 2em;
+
+                            i
+                            {
+                                font-size: 1.25em;
+                            }
+                        }
+                    }
+
+                    a:hover
+                    {
+                        color:rgb(34, 168, 104);
+                    }
+                }
+
+                .nav-item.active
+                {
+                    a
+                    {
+                        border-left: 4px solid rgb(34, 168, 104);
+                        padding: 1.5em 0 1.5em 60px;
+                    }
+                }
+            }
+        }
+
+        .dashboard-content
+        {
+            display: flex;
+            flex-direction: column;
+            gap: 3em;
+            flex: 1;
+
+            .post-actions-container
+            {
+                display: flex;
+                padding: 1em;
+                box-sizing: border-box;
+                background-color: rgb(255, 255, 255);
+                box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+
+                .create-post-action
+                {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 0.5em;
+                    padding: 0.85em 2em;
+                    text-decoration: none;
+                    color:rgb(255, 255, 255);
+                    background-color:rgb(34, 168, 104);
+                    border-radius: 4px;
+                    transition: background-color 0.25s;
+
+                    i
+                    {
+                        font-size: 20px;
+                        font-weight: 700;
+                    }
+
+                    span
+                    {
+                        font-weight: 700;
+                    }
+                }
+
+                .create-post-action:hover
+                {
+                    background-color: rgb(27, 131, 81);
+                    transition: background-color 0.25s;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 1024px)
+{
+    .dashboard-header
+    {
+        background-color: rgb(30, 30, 30);
+
+        .header-content
+        {
+            .account-button
+            {
+                span
+                {
+                    color:rgb(255, 255, 255);
+                }
+
+                i
+                {
+                    color: rgb(255, 255, 255);
+                }
+            }
+        }
+    }
+}
