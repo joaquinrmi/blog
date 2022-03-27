@@ -5,10 +5,12 @@ import "./post_list.scss";
 
 export interface Props
 {
+    author?: string;
     tags?: Array<string>;
     initOffset?: number;
     startDate?: Date;
     endDate?: Date;
+    editMode?: boolean;
 }
 
 const PostList: React.FunctionComponent<Props> = (props) =>
@@ -113,7 +115,7 @@ const PostList: React.FunctionComponent<Props> = (props) =>
             <div className="card-post-container">
                 {postDataList.map((postData, index) =>
                 {
-                    return <PostCard key={`${index}-post`} data={postData} />
+                    return <PostCard editMode={props.editMode ? true : false} key={`${index}-post`} data={postData} />
                 })}
             </div>
 
