@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Modal, { ModalElement } from "../../../../components/modal/";
+import NavItem from "../../../../components/nav_item/";
 
 import "./navbar.scss";
 
@@ -89,20 +90,14 @@ const Navbar: React.FunctionComponent<Props> = (props) =>
                 <i className="fa-solid fa-bars"></i>
             </div>
 
-            <div className="navigation-list">
+            <ul className="navigation-list">
                 {props.sections.map((section, index) =>
                 {
-                    let current = "";
-                    if(section.path === props.currentSection)
-                    {
-                        current = "current";
-                    }
-
-                    return <Link key={`link-${index}`} className={`navigation-link ${current}`} to={section.path === "" ? "/" : `/category/${section.path}`}>
+                    return <NavItem key={`link-${index}`} to={section.path === "" ? "/" : `/category/${section.path}`} className={`navigation-link`}>
                         {section.name}
-                    </Link>;
+                    </NavItem>;
                 })}
-            </div>
+            </ul>
 
             <div id="nav-search-button" className="navigation-search" role="button">
                 <i className="fa-solid fa-magnifying-glass"></i>

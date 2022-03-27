@@ -23,24 +23,39 @@
             align-items: center;
             gap: 2em;
             flex: 1 1 100%;
+            margin: 0;
+            padding: 0;
+            list-style: none;
 
             .navigation-link
             {
                 font-weight: 700;
                 text-decoration: none;
-                color: rgb(170, 170, 170);
                 transition: color 0.25s;
+
+                a
+                {
+                    color: rgb(170, 170, 170);
+                    text-decoration: none;
+                    transition: color 0.25s;
+                }
             }
 
             .navigation-link:hover
             {
-                color: rgb(220, 220, 220);
-                transition: color 0.25s;
+                a
+                {
+                    color: rgb(220, 220, 220);
+                    transition: color 0.25s;
+                }
             }
 
-            .navigation-link.current
+            .navigation-link.active
             {
-                color: rgb(220, 220, 220);
+                a
+                {
+                    color: rgb(220, 220, 220);
+                }
             }
         }
 
