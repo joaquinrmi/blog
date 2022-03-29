@@ -37,22 +37,23 @@ const LoginPage: React.FunctionComponent<Props> = (props) =>
                 {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(reqObject)
+                body: JSON.stringify(reqObject),
+                credentials: "include"
             });
 
-            if(res.status !== 201)
-            {
-                const errorSpan = document.getElementById("admin-login-error") as HTMLSpanElement;
-                errorSpan.innerText = "Combinación usuario-contraseña incorrecta.";
-                errorSpan.classList.add("show");
-            }
-            else
+            if(res.status === 200 || res.status === 201)
             {
                 const data = await res.json();
 
                 props.login({
                     username: data.alias
                 });
+            }
+            else
+            {
+                const errorSpan = document.getElementById("admin-login-error") as HTMLSpanElement;
+                errorSpan.innerText = "Combinación usuario-contraseña incorrecta.";
+                errorSpan.classList.add("show");
             }
         };
     });
