@@ -1,0 +1,40 @@
+.new-post-content
+{
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    padding: 2em;
+    box-sizing: border-box;
+    background-color: rgb(255, 255, 255);
+
+    .new-post-options
+    {
+        display: flex;
+        flex-direction: row;
+
+        .new-post-add-image,
+        .new-post-add-text
+        {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            padding: 2em 0;
+            cursor: pointer;
+            transition: background-color 0.25s;
+
+            i
+            {
+                font-size: 1.5em;
+            }
+        }
+
+        .new-post-add-image:hover,
+        .new-post-add-text:hover
+        {
+            background-color: rgb(240, 240, 240);
+            transition: background-color 0.25s;
+        }
+    }
+}
