@@ -1,0 +1,14 @@
+.new-post-image-input-container
+{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.new-post-image-container
+{
+    img
+    {
+        width: 100%;
+    }
+}
