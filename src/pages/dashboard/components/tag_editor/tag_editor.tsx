@@ -2,7 +2,17 @@ import React, { useState, useEffect } from "react";
 
 import "./tag_editor.scss";
 
-const TagEditor: React.FunctionComponent = (props) =>
+export interface Props
+{
+    id: string;
+}
+
+export interface TagEditorElement extends HTMLDivElement
+{
+    getTags(): Array<string>;
+}
+
+const TagEditor: React.FunctionComponent<Props> = (props) =>
 {
     const [ tags, setTags ] = useState<Array<TagData>>([]);
 
@@ -49,6 +59,16 @@ const TagEditor: React.FunctionComponent = (props) =>
             tagInput.classList.remove("error");
             nameInput.classList.remove("error");
         };
+
+        const element = document.getElementById(props.id) as TagEditorElement;
+        
+        element.getTags = () =>
+        {
+            return tags.map(tag =>
+            {
+                return tag.tag;
+            });
+        };
     },
     []);
 
@@ -63,7 +83,7 @@ const TagEditor: React.FunctionComponent = (props) =>
         });
     };
 
-    return <div className="new-post-tags-container">
+    return <div id={props.id} className="new-post-tags-container">
         <span>Selecciones una o más categorías:</span>
 
         <div className="create-tag">
