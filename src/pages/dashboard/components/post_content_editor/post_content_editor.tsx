@@ -5,7 +5,16 @@ import PostImage from "../post_image/";
 import "./post_content_editor.scss";
 
 export interface Props
-{}
+{
+    id: string;
+}
+
+export interface PostContentEditorElement extends HTMLDivElement
+{
+    getContent(): Array<string>;
+    getGallery(): Array<string>;
+    getGalleryPosition(): Array<number>;
+}
 
 const PostContentEditor: React.FunctionComponent<Props> = (props) =>
 {
@@ -32,6 +41,62 @@ const PostContentEditor: React.FunctionComponent<Props> = (props) =>
                 return [ ...state, { type: PostElementType.Image } ];
             });
         };
+
+        const element = document.getElementById("new-post-options") as PostContentEditorElement;
+
+        element.getContent = () =>
+        {
+            let result: Array<string> = [];
+            for(let i = 0; i < elements.length; ++i)
+            {
+                if(elements[i].type === PostElementType.Text)
+                {
+                    const textElement = document.getElementById(`textarea-${i}-post-text`) as HTMLTextAreaElement;
+
+                    result.push(textElement.value);
+                }
+            }
+
+            return result;
+        };
+
+        element.getGallery = () =>
+        {
+            let result: Array<string> = [];
+            for(let i = 0; i < elements.length; ++i)
+            {
+                if(elements[i].type === PostElementType.Image)
+                {
+                    const imageElement = document.getElementById(`${i}-post-image-image`) as HTMLImageElement;
+
+                    result.push(imageElement.src);
+                }
+            }
+
+            return result;
+        };
+
+        element.getGalleryPosition = () =>
+        {
+            let result: Array<number> = [];
+
+            let currentPos = 0;
+            for(let i = 0; i < elements.length; ++i)
+            {
+                switch(elements[i].type)
+                {
+                case PostElementType.Text:
+                    ++currentPos;
+                    break;
+
+                case PostElementType.Image:
+                    result.push(currentPos);
+                    break;
+                }
+            }
+
+            return result;
+        };
     },
     []);
 
@@ -46,7 +111,7 @@ const PostContentEditor: React.FunctionComponent<Props> = (props) =>
         });
     };
 
-    return <div id="new-post-content" className="new-post-content">
+    return <div id={props.id} className="new-post-content">
         {elements.map((element, index) =>
         {
             switch(element.type)
