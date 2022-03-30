@@ -3,6 +3,7 @@ import { Routes, Route, Link, useParams } from "react-router-dom";
 import PostList from "../public/components/post_list";
 import SessionContext from "../admin/session_context";
 import NavItem from "../../components/nav_item";
+import CreatePost from "./components/create_post/";
 
 import "./dashboard.scss";
 
@@ -69,6 +70,8 @@ const Dashboard: React.FunctionComponent<Props> = (props) =>
                         </>} />
 
                         <Route path="/posts/:postId" element={<ShowPost />} />
+
+                        <Route path="/create-post" element={<CreatePost />} />
                     </Routes>
                 </section>
             </div>
