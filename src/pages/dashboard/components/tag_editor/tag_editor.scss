@@ -1,0 +1,90 @@
+.new-post-tags-container
+{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    padding: 0 1em;
+    box-sizing: border-box;
+
+    .create-tag
+    {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1em;
+
+        input
+        {
+            padding: 0.5em 0;
+            font-size: 15px;
+            border: 0;
+            border-bottom: 1px solid rgba(34, 168, 104, 0);
+            transition: border 0.25s;
+        }
+
+        input:focus
+        {
+            outline: none;
+            border-bottom: 1px solid rgba(34, 168, 104, 1);
+            transition: border 0.25s;
+        }
+
+        input.error
+        {
+            border-bottom: 1px solid rgb(192, 39, 12);
+        }
+
+        .add-tag
+        {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            box-sizing: border-box;
+            cursor: pointer;
+            background-color: rgb(34, 168, 104);
+            border-radius: 500px;
+            transition: background-color 0.25s;
+
+            i
+            {
+                color: rgb(255, 255, 255);
+            }
+        }
+
+        .add-tag:hover
+        {
+            background-color: rgb(27, 131, 81);
+            transition: background-color 0.25s;
+        }
+    }
+
+    .tag-list
+    {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5em;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        .new-post-tag
+        {
+            padding: 0.5em 1em;
+            font-size: 15px;
+            border: 1px solid rgb(200, 200, 200);
+            border-radius: 4px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .new-post-tag:hover
+        {
+            background-color: rgb(192, 39, 12);
+            border: 1px solid rgb(192, 39, 12);
+            color: rgb(255, 255, 255);
+        }
+    }
+}
