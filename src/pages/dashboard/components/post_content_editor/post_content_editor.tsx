@@ -41,8 +41,12 @@ const PostContentEditor: React.FunctionComponent<Props> = (props) =>
                 return [ ...state, { type: PostElementType.Image } ];
             });
         };
+    },
+    []);
 
-        const element = document.getElementById("new-post-options") as PostContentEditorElement;
+    useEffect(() =>
+    {
+        const element = document.getElementById(props.id) as PostContentEditorElement;
 
         element.getContent = () =>
         {
@@ -97,8 +101,7 @@ const PostContentEditor: React.FunctionComponent<Props> = (props) =>
 
             return result;
         };
-    },
-    []);
+    });
 
     const eraseElement = (id: number) =>
     {
