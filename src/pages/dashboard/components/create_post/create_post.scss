@@ -5,6 +5,41 @@
     gap: 2em;
     margin-bottom: 4em;
 
+    .new-post-error
+    {
+        display: none;
+        flex-direction: column;
+        gap: 1em;
+        padding: 2em;
+        box-sizing: border-box;
+        background-color: rgb(255, 255, 255);
+
+        .error-title
+        {
+            font-weight: 700;
+            color: rgb(192, 39, 12);
+        }
+
+        ul
+        {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5em;
+            margin: 0;
+            padding: 0 0 0 1em;
+        }
+
+        li
+        {
+            color: rgb(192, 39, 12);
+        }
+    }
+
+    .new-post-error.show
+    {
+        display: flex;
+    }
+
     .new-post-header
     {
         display: flex;
