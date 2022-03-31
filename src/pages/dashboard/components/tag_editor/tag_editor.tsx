@@ -59,7 +59,11 @@ const TagEditor: React.FunctionComponent<Props> = (props) =>
             tagInput.classList.remove("error");
             nameInput.classList.remove("error");
         };
+    },
+    []);
 
+    useEffect(() =>
+    {
         const element = document.getElementById(props.id) as TagEditorElement;
         
         element.getTags = () =>
@@ -69,8 +73,7 @@ const TagEditor: React.FunctionComponent<Props> = (props) =>
                 return tag.tag;
             });
         };
-    },
-    []);
+    });
 
     const removeTag = (index: number) =>
     {
