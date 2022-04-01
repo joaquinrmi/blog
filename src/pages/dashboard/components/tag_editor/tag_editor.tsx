@@ -5,6 +5,7 @@ import "./tag_editor.scss";
 export interface Props
 {
     id: string;
+    initTags?: Array<TagData>;
 }
 
 export interface TagEditorElement extends HTMLDivElement
@@ -14,7 +15,7 @@ export interface TagEditorElement extends HTMLDivElement
 
 const TagEditor: React.FunctionComponent<Props> = (props) =>
 {
-    const [ tags, setTags ] = useState<Array<TagData>>([]);
+    const [ tags, setTags ] = useState<Array<TagData>>(props.initTags ? props.initTags : []);
 
     useEffect(() =>
     {
@@ -114,7 +115,7 @@ const TagEditor: React.FunctionComponent<Props> = (props) =>
     </div>;
 };
 
-interface TagData
+export interface TagData
 {
     tag: string;
     name: string;
