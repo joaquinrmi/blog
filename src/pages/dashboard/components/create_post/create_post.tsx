@@ -4,10 +4,16 @@ import Imageinput from "../../../../components/image_input/";
 import PostContentEditor, { PostContentEditorElement } from "../post_content_editor/";
 import uploadImage from "../../upload_image";
 import TagEditor, { TagEditorElement } from "../tag_editor/";
+import { PostData } from "../../../public/components/post";
 
 import "./create_post.scss";
 
-const CreatePost: React.FunctionComponent = () =>
+export interface Props
+{
+    postData?: PostData;
+}
+
+const CreatePost: React.FunctionComponent<Props> = (props) =>
 {
     const [ redirect, setRedirect ] = useState<string>("");
     const [ errorMessages, setErrorMessages ] = useState<Array<string>>([]);
@@ -114,18 +120,22 @@ const CreatePost: React.FunctionComponent = () =>
         </div>
 
         <div className="new-post-header">
-            <input type="text" id="new-post-title" className="new-post-title" placeholder="Escriba un título" />
+            <input type="text" id="new-post-title" className="new-post-title" placeholder="Escriba un título" value={props.postData ? props.postData.title : ""} />
 
             <div className="new-post-cover-container">
                 <span>Seleccione una imagen de portada:</span>
 
-                <Imageinput id="new-post-cover" inputClassName="new-post-cover" imageContainerClassName="image-container" imgAlt="Imagen de portada" onChange={uploadImage} />
+                <Imageinput id="new-post-cover" inputClassName="new-post-cover" imageContainerClassName="image-container" imgAlt="Imagen de portada" onChange={uploadImage} initSrc={props.postData ? props.postData.cover : undefined} />
             </div>
 
-            <TagEditor id="new-post-tag-editor" />
+            <TagEditor id="new-post-tag-editor" initTags={props.postData ? props.postData.tags.map(value => {
+                const splitPath = value.path.split("/");
+
+                return { tag: splitPath[splitPath.length - 1], name: value.name };
+            }) : undefined} />
         </div>
 
-        <PostContentEditor id="new-post-content" />
+        <PostContentEditor id="new-post-content" content={props.postData ? props.postData.contet : undefined} gallery={props.postData ? props.postData.gallery : undefined} galleryPosition={props.postData ? props.postData.galleryPosition : undefined} />
 
         <div id="new-post-create-button" className="new-post-create-button" role="button">
             Publicar
