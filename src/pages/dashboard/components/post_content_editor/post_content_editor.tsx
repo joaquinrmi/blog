@@ -7,6 +7,9 @@ import "./post_content_editor.scss";
 export interface Props
 {
     id: string;
+    content?: Array<string>;
+    gallery?: Array<string>;
+    galleryPosition?: Array<number>;
 }
 
 export interface PostContentEditorElement extends HTMLDivElement
@@ -18,7 +21,39 @@ export interface PostContentEditorElement extends HTMLDivElement
 
 const PostContentEditor: React.FunctionComponent<Props> = (props) =>
 {
-    const [ elements, setElements ] = useState<Array<PostElement>>([]);
+    const [ elements, setElements ] = useState<Array<PostElement>>(props.content ? () =>
+    {
+        const content = props.content ? props.content : [];
+        const gallery = props.gallery ? props.gallery : [];
+        const galleryPos = props.galleryPosition ? props.galleryPosition : [];
+
+        let result = new Array<PostElement>();
+
+        let gpIndex = 0;
+        for(let i = 0; i < content.length; ++i)
+        {
+            if(gpIndex < galleryPos.length)
+            {
+                if(galleryPos[gpIndex] === i)
+                {
+                    result.push({
+                        type: PostElementType.Image,
+                        initSrc: gallery[gpIndex]
+                    } as ImagePostElement);
+
+                    ++gpIndex;
+                }
+            }
+
+            result.push({
+                type: PostElementType.Text,
+                value: content[i]
+            } as TextPostElement);
+        }
+
+        return result;
+    }
+    : []);
 
     useEffect(() =>
     {
@@ -123,13 +158,13 @@ const PostContentEditor: React.FunctionComponent<Props> = (props) =>
                 return null;
 
             case PostElementType.Text:
-                return <PostText key={`${index}-post-text`} id={`${index}-post-text`} erase={() =>
+                return <PostText key={`${index}-post-text`} id={`${index}-post-text`} value={(element as TextPostElement).value} erase={() =>
                 {
                     eraseElement(index);
                 }} />;
 
             case PostElementType.Image:
-                return <PostImage key={`${index}-post-image`} id={`${index}-post-image`} erase={() =>
+                return <PostImage key={`${index}-post-image`} id={`${index}-post-image`} initSrc={(element as ImagePostElement).initSrc} erase={() =>
                 {
                     eraseElement(index);
                 }} />;
@@ -153,6 +188,16 @@ const PostContentEditor: React.FunctionComponent<Props> = (props) =>
 interface PostElement
 {
     type: PostElementType;
+}
+
+interface ImagePostElement extends PostElement
+{
+    initSrc?: string;
+}
+
+interface TextPostElement extends PostElement
+{
+    value?: string;
 }
 
 enum PostElementType
