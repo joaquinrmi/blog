@@ -6,6 +6,7 @@ export interface Props
     inputClassName: string;
     imageContainerClassName: string;
     imgAlt?: string;
+    initSrc?: string;
     
     onChange(inputElement: HTMLInputElement, imageElement: HTMLImageElement): Promise<string>;
 }
@@ -32,7 +33,7 @@ const Imageinput: React.FunctionComponent<Props> = (props) =>
         <input type="file" accept="image/png, image/jpeg" id={`${props.id}-input`} className={props.inputClassName} />
 
         <div className={props.imageContainerClassName}>
-            <img src="" alt={props.imgAlt} id={`${props.id}-image`} />
+            <img src={props.initSrc ? props.initSrc : ""} alt={props.imgAlt} id={`${props.id}-image`} style={props.initSrc ? { display: "block" } : {}}/>
         </div>
     </>;
 };
