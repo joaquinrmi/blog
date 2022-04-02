@@ -44,11 +44,20 @@ const PostList: React.FunctionComponent<Props> = (props) =>
                 }
                 else
                 {
-                    console.log(res);
+                    setPostDataList([
+                        { ...NOTHING_TO_SHOW }
+                    ]);
                 }
             }
         ).then(data =>
             {
+                if(data.elements.length === 0)
+                {
+                    return setPostDataList([
+                        { ...NOTHING_TO_SHOW }
+                    ]);
+                }
+
                 setPostDataList((data.elements as Array<PostData>).map(postData =>
                 {
                     return {
@@ -97,6 +106,12 @@ const PostList: React.FunctionComponent<Props> = (props) =>
                     </div>
                 </div>;
             })}
+        </div>;
+    }
+    else if(postDataList[0].id === NOTHING_TO_SHOW.id)
+    {
+        content = <div className="nothing-to-show">
+            No hay elementos para mostrar.
         </div>;
     }
     else
@@ -213,6 +228,14 @@ const ArrowPageNavigationButton: React.FunctionComponent<ArrowPageNavigationProp
         onClick={() => {
             props.setPage(props.currentPage + 1 * (props.direction === PageNavigationDirection.Prev ? -1 : 1));
         }} />;
+};
+
+const NOTHING_TO_SHOW: PostCardData = {
+    id: "nothing-to-show",
+    title: "",
+    cover: "",
+    tags: [],
+    contentFragment: ""
 };
 
 export default PostList;
