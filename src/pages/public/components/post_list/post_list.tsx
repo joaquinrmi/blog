@@ -27,7 +27,9 @@ const PostList: React.FunctionComponent<Props> = (props) =>
 
     useEffect(() =>
     {
-        const query = `offset=${props.initOffset ? props.initOffset : (page.current - 1) * elementsPerPage}&count=${elementsPerPage}&tags=${props.tags ? props.tags.toString() : "[]"}&order=desc`;
+        const queryTags = props.tags ? `[${props.tags.map(e => `"${e}"`).toString()}]` : "[]";
+
+        const query = `offset=${props.initOffset ? props.initOffset : (page.current - 1) * elementsPerPage}&count=${elementsPerPage}&tags=${queryTags}&order=desc`;
 
         const searchPath = `${process.env.REACT_APP_SERVER}/api/post/get-list/?${query}`;
 
@@ -39,6 +41,10 @@ const PostList: React.FunctionComponent<Props> = (props) =>
                 if(res.status === 200)
                 {
                     return res.json();
+                }
+                else
+                {
+                    console.log(res);
                 }
             }
         ).then(data =>
