@@ -27,7 +27,7 @@ const PostText: React.FunctionComponent<Props> = (props) =>
     });
 
     return <PostElement id={props.id} erase={props.erase}>
-        <textarea placeholder="Comience a escribir aquí" id={`textarea-${props.id}`} className="new-post-textarea" value={initValue}></textarea>
+        <textarea placeholder="Comience a escribir aquí" id={`textarea-${props.id}`} className="new-post-textarea" defaultValue={initValue}></textarea>
     </PostElement>;
 };
 
