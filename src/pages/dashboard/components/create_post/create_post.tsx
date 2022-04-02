@@ -129,7 +129,7 @@ const CreatePost: React.FunctionComponent<Props> = (props) =>
             </div>
 
             <TagEditor id="new-post-tag-editor" initTags={props.postData ? props.postData.tags.map(value => {
-                const splitPath = value.path.split("/");
+                const splitPath = value.tag.split("/");
 
                 return { tag: splitPath[splitPath.length - 1], name: value.name };
             }) : undefined} />

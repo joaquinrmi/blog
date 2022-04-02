@@ -13,7 +13,7 @@ export interface PostData
     id: string;
     title: string;
     dateCreated: Date;
-    tags: Array<{ name: string, path: string }>;
+    tags: Array<{ tag: string, name: string }>;
     content: Array<string>;
     cover: string;
     gallery: Array<string>;
@@ -48,8 +48,8 @@ const Post: React.FunctionComponent<Props> = (props) =>
                     title: "Título",
                     dateCreated: new Date(),
                     tags: [
-                        { name: "Animales", path: "animals" },
-                        { name: "Ciencia", path: "science" }
+                        { name: "Animales", tag: "animals" },
+                        { name: "Ciencia", tag: "science" }
                     ],
                     content: [
                         "Lorem ipsum dolor sit amet consectetur adipisicing elit. In expedita ducimus quia illum aspernatur, recusandae delectus, doloribus veritatis ullam placeat voluptas accusamus aliquam nisi? Laboriosam perferendis nisi asperiores laudantium eligendi!",
@@ -82,7 +82,7 @@ const Post: React.FunctionComponent<Props> = (props) =>
                 <div className="post-tags">
                     {status.data.tags.map((tag, index) =>
                     {
-                        return <Link to={`/category/${tag.path}`} key={`${index}-tag`} className="post-tag">
+                        return <Link to={`/category/${tag.tag}`} key={`${index}-tag`} className="post-tag">
                             {tag.name}
                         </Link>
                     })}

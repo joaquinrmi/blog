@@ -14,7 +14,7 @@ export interface PostCardData
     id: string;
     title: string;
     cover: string;
-    tags: Array<{ name: string, path: string }>;
+    tags: Array<{ name: string, tag: string }>;
     contentFragment: string;
 }
 
@@ -30,7 +30,7 @@ const PostCard: React.FunctionComponent<Props> = (props) =>
                 {props.data.tags.map((tag, index) =>
                 {
                     return <>
-                        <Link key={`tag-${index}`} to={`/category/${tag.path}`}>
+                        <Link key={`tag-${index}`} to={`/category/${tag.tag}`}>
                             {tag.name}
                         </Link>
                         {index + 1 < props.data.tags.length ? <span className="comma">,</span> : null}
