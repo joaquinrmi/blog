@@ -10,10 +10,11 @@ export interface Props
 
 export interface PostData
 {
+    id: string;
     title: string;
-    date: Date;
+    dateCreated: Date;
     tags: Array<{ name: string, path: string }>;
-    contet: Array<string>;
+    content: Array<string>;
     cover: string;
     gallery: Array<string>;
     galleryPosition: Array<number>;
@@ -43,13 +44,14 @@ const Post: React.FunctionComponent<Props> = (props) =>
             setStatus({
                 loaded: true,
                 data: {
+                    id: "",
                     title: "Título",
-                    date: new Date(),
+                    dateCreated: new Date(),
                     tags: [
                         { name: "Animales", path: "animals" },
                         { name: "Ciencia", path: "science" }
                     ],
-                    contet: [
+                    content: [
                         "Lorem ipsum dolor sit amet consectetur adipisicing elit. In expedita ducimus quia illum aspernatur, recusandae delectus, doloribus veritatis ullam placeat voluptas accusamus aliquam nisi? Laboriosam perferendis nisi asperiores laudantium eligendi!",
                         "Lorem ipsum dolor sit amet consectetur adipisicing elit. In expedita ducimus quia illum aspernatur, recusandae delectus, doloribus veritatis ullam placeat voluptas accusamus aliquam nisi? Laboriosam perferendis nisi asperiores laudantium eligendi!"
                     ],
@@ -68,9 +70,9 @@ const Post: React.FunctionComponent<Props> = (props) =>
         content = <>
             <div className="post-header">
                 <span className="post-date">
-                    {status.data.date.getDate()}/
-                    {status.data.date.getMonth()}/
-                    {status.data.date.getFullYear()}
+                    {status.data.dateCreated.getDate()}/
+                    {status.data.dateCreated.getMonth()}/
+                    {status.data.dateCreated.getFullYear()}
                 </span>
 
                 <h1 className="post-title">
@@ -92,7 +94,7 @@ const Post: React.FunctionComponent<Props> = (props) =>
             </div>
 
             <div className="post-content">
-                {status.data.contet.map((para, index) =>
+                {status.data.content.map((para, index) =>
                 {
                     return <p className="post-paragraph">
                         {para}
