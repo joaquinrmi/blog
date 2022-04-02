@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PostCard, { PostCardData } from "../post_card";
+import { PostData } from "../post/";
 
 import "./post_list.scss";
 
@@ -18,56 +19,52 @@ const PostList: React.FunctionComponent<Props> = (props) =>
     const [ postDataList, setPostDataList ] = useState<Array<PostCardData>>([]);
 
     const [ page, setPage ] = useState({
-        current: 64,
-        last: 100
+        current: 1,
+        last: 1
     });
+
+    const [ elementsPerPage, setElementsPerPage ] = useState(10);
 
     useEffect(() =>
     {
-        if(postDataList.length > 0)
-        {
-            return;
-        }
+        const query = `offset=${props.initOffset ? props.initOffset : (page.current - 1) * elementsPerPage}&count=${elementsPerPage}&tags=${props.tags ? props.tags.toString() : "[]"}&order=desc`;
 
-        setTimeout(() =>
-        {
-            setPostDataList([
+        const searchPath = `${process.env.REACT_APP_SERVER}/api/post/get-list/?${query}`;
+
+        fetch(searchPath, {
+            method: "GET"
+        })
+        .then(res =>
+            {
+                if(res.status === 200)
                 {
-                    id: "string",
-                    title: "El mundo de los zorros",
-                    cover: "https://cdn.pixabay.com/photo/2019/10/30/16/19/fox-4589927__340.jpg",
-                    tags: [
-                        {
-                            name: "Animales",
-                            path: "animals"
-                        },
-                        {
-                            name: "Ciencia",
-                            path: "science"
-                        }
-                    ],
-                    contentFragment: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur nobis labore excepturi! Amet deleniti sit sint aperiam ipsum debitis beatae facere voluptatibus distinctio? Autem sed, sapiente illum quidem est repellat.",
-                },
-                {
-                    id: "string",
-                    title: "El mundo de los zorros",
-                    cover: "https://www.northern-scot.co.uk/_media/img/N1HIOLEM3ZQ1K82I05CK.jpg",
-                    tags: [
-                        {
-                            name: "Animales",
-                            path: "animals"
-                        },
-                        {
-                            name: "Ciencia",
-                            path: "science"
-                        }
-                    ],
-                    contentFragment: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur nobis labore excepturi! Amet deleniti sit sint aperiam ipsum debitis beatae facere voluptatibus distinctio? Autem sed, sapiente illum quidem est repellat.",
+                    return res.json();
                 }
-            ]);
-        },
-        2000);
-    });
+            }
+        ).then(data =>
+            {
+                setPostDataList((data.elements as Array<PostData>).map(postData =>
+                {
+                    return {
+                        id: postData.id,
+                        title: postData.title,
+                        cover: postData.cover,
+                        tags: postData.tags,
+                        contentFragment: postData.content[0].slice(0, 180)
+                    };
+                }));
+
+                setPage(state =>
+                {
+                    return {
+                        current: state.current,
+                        last: data.totalElementCount / elementsPerPage
+                    };
+                });
+            }
+        );
+    },
+    [ page.current ]);
 
     let content;
     if(postDataList.length === 0)
@@ -111,6 +108,14 @@ const PostList: React.FunctionComponent<Props> = (props) =>
             rightPages.push(page.current + i + 1);
         }
 
+        const setCurrentPage = (page: number) =>
+        {
+            setPage(state =>
+            {
+                return { ...state, current: page };
+            });
+        };
+
         content = <>
             <div className="card-post-container">
                 {postDataList.map((postData, index) =>
@@ -120,23 +125,23 @@ const PostList: React.FunctionComponent<Props> = (props) =>
             </div>
 
             <div className="page-navigation">
-                {page.current > 1 ? <PageNavigationButton symbol="<" /> : null}
+                {page.current > 1 ? <ArrowPageNavigationButton direction={PageNavigationDirection.Prev} currentPage={page.current} setPage={setCurrentPage} /> : null}
 
                 {leftPages.map((value, index) =>
                 {
-                    return <PageNavigationButton key={`${index}-page`} symbol={`${value}`} className="mid-page-nav-button" />;
+                    return <NumberPageNavigationButton key={`${index}-page`} page={value} className="mid-page-nav-button" setPage={setCurrentPage} />;
                 })}
 
-                <PageNavigationButton symbol={`${page.current}`} focus />
+                <NumberPageNavigationButton page={page.current} focus setPage={setCurrentPage} />
 
                 {rightPages.map((value, index) =>
                 {
-                    return <PageNavigationButton key={`${index}-page`} symbol={`${value}`} className="mid-page-nav-button" />;
+                    return <NumberPageNavigationButton key={`${index}-page`} page={value} className="mid-page-nav-button" setPage={setCurrentPage} />;
                 })}
 
                 {page.last > page.current ? <>
-                    <PageNavigationButton symbol={`${page.last}`} />
-                    <PageNavigationButton symbol=">" />
+                    <NumberPageNavigationButton page={page.last} setPage={setCurrentPage} />
+                    <ArrowPageNavigationButton direction={PageNavigationDirection.Next} currentPage={page.current} setPage={setCurrentPage} />
                 </> : null}
             </div>
         </>
@@ -152,13 +157,56 @@ interface PageNavigationProps
     symbol: string;
     focus?: boolean;
     className?: string;
+
+    onClick(): void;
 }
 
 const PageNavigationButton: React.FunctionComponent<PageNavigationProps> = (props) =>
 {
-    return <div className={`page-nav-button ${props.className ? props.className : ""} ${props.focus ? "active" : ""}`}>
+    return <div className={`page-nav-button ${props.className ? props.className : ""} ${props.focus ? "active" : ""}`} onClick={props.onClick}>
         {props.symbol}
     </div>;
+};
+
+interface NumberPageNavigationProps
+{
+    page: number;
+    focus?: boolean;
+    className?: string;
+
+    setPage(page: number): void;
+}
+
+const NumberPageNavigationButton: React.FunctionComponent<NumberPageNavigationProps> = (props) =>
+{
+    return <PageNavigationButton symbol={props.page.toString()} focus={props.focus} className={props.className} onClick={() => { props.setPage(props.page); }} />;
+};
+
+interface ArrowPageNavigationProps
+{
+    direction: PageNavigationDirection;
+    currentPage: number;
+    focus?: boolean;
+    className?: string;
+
+    setPage(page: number): void;
+}
+
+enum PageNavigationDirection
+{
+    Prev = "<",
+    Next = ">"
+}
+
+const ArrowPageNavigationButton: React.FunctionComponent<ArrowPageNavigationProps> = (props) =>
+{
+    return <PageNavigationButton
+        symbol={props.direction}
+        focus={props.focus}
+        className={props.className}
+        onClick={() => {
+            props.setPage(props.currentPage + 1 * (props.direction === PageNavigationDirection.Prev ? -1 : 1));
+        }} />;
 };
 
 export default PostList;
