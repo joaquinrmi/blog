@@ -39,13 +39,15 @@ const CreatePost: React.FunctionComponent<Props> = (props) =>
 
             const contentEditor = document.getElementById("new-post-content") as PostContentEditorElement;
 
+            const tags = tagEditor.getTags();
+
             const postForm: PostForm = {
                 title: titleInput.value,
                 cover: coverImage.src,
                 content: contentEditor.getContent(),
                 gallery: contentEditor.getGallery(),
                 galleryPosition: contentEditor.getGalleryPosition(),
-                tags: tagEditor.getTags()
+                tags: tags.map(tag => tag.tag)
             };
 
             const newErrorMessages: Array<string> = [];
@@ -66,7 +68,31 @@ const CreatePost: React.FunctionComponent<Props> = (props) =>
                 return;
             }
 
-            const res = await fetch(`${process.env.REACT_APP_SERVER}/api/post/create`, {
+            const createTagPath = `${process.env.REACT_APP_SERVER}/api/post/create-tag`;
+
+            for(let i = 0; i < tags.length; ++i)
+            {
+                const res = await fetch(createTagPath, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(tags[i]),
+                    credentials: "include"
+                });
+
+                if(res.status !== 201)
+                {
+                    console.log(res);
+                    newErrorMessages.push("Ocurrió un error inesperado.");
+                    setErrorMessages(newErrorMessages);
+                    return;
+                }
+            }
+
+            const createPostPath = `${process.env.REACT_APP_SERVER}/api/post/create`;
+
+            const res = await fetch(createPostPath, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -120,7 +146,7 @@ const CreatePost: React.FunctionComponent<Props> = (props) =>
         </div>
 
         <div className="new-post-header">
-            <input type="text" id="new-post-title" className="new-post-title" placeholder="Escriba un título" value={props.postData ? props.postData.title : ""} />
+            <input type="text" id="new-post-title" className="new-post-title" placeholder="Escriba un título" defaultValue={props.postData ? props.postData.title : ""} />
 
             <div className="new-post-cover-container">
                 <span>Seleccione una imagen de portada:</span>
