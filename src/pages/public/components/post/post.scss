@@ -67,6 +67,16 @@
         flex-direction: column;
         gap: 1em;
 
+        .post-image
+        {
+            display: block;
+
+            img
+            {
+                width: 100%;
+            }
+        }
+
         .post-paragraph
         {
             margin: 0;

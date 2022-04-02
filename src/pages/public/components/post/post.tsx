@@ -68,20 +68,50 @@ const Post: React.FunctionComponent<Props> = (props) =>
     let content: any;
     if(status.loaded && status.data)
     {
+        const data = status.data;
+        if(!data.gallery)
+        {
+            data.gallery = [];
+            data.galleryPosition = [];
+        }
+
+        let postContent = new Array<PostContentElement>();
+
+        let gpIndex = 0;
+        for(let i = 0; i < data.content.length; ++i)
+        {
+            if(gpIndex < data.galleryPosition.length)
+            {
+                if(data.galleryPosition[gpIndex] === i)
+                {
+                    postContent.push({
+                        type: PostContentElementType.Image,
+                        index: gpIndex
+                    });
+                    ++gpIndex;
+                }
+            }
+
+            postContent.push({
+                type: PostContentElementType.Text,
+                index: i
+            });
+        }
+
         content = <>
             <div className="post-header">
                 <span className="post-date">
-                    {status.data.dateCreated.getDate()}/
-                    {status.data.dateCreated.getMonth() + 1}/
-                    {status.data.dateCreated.getFullYear()}
+                    {data.dateCreated.getDate()}/
+                    {data.dateCreated.getMonth() + 1}/
+                    {data.dateCreated.getFullYear()}
                 </span>
 
                 <h1 className="post-title">
-                    {status.data.title}
+                    {data.title}
                 </h1>
 
                 <div className="post-tags">
-                    {status.data.tags.map((tag, index) =>
+                    {data.tags.map((tag, index) =>
                     {
                         return <Link to={`/category/${tag.tag}`} key={`${index}-tag`} className="post-tag">
                             {tag.name}
@@ -91,15 +121,24 @@ const Post: React.FunctionComponent<Props> = (props) =>
             </div>
 
             <div className="post-cover">
-                <img src={status.data.cover} />
+                <img src={data.cover} />
             </div>
 
             <div className="post-content">
-                {status.data.content.map((para, index) =>
+                {postContent.map((element, index) =>
                 {
-                    return <p className="post-paragraph">
-                        {para}
-                    </p>;
+                    switch(element.type)
+                    {
+                    case PostContentElementType.Image:
+                        return <div className="post-image">
+                            <img key={`${index}-content`} src={data.gallery[element.index]} alt="" />
+                        </div>;
+
+                    case PostContentElementType.Text:
+                        return <p key={`${index}-content`} className="post-paragraph">
+                            {data.content[element.index]}
+                        </p>;
+                    }
                 })}
             </div>
         </>;
@@ -130,5 +169,17 @@ const Post: React.FunctionComponent<Props> = (props) =>
         {content}
     </div>;
 };
+
+interface PostContentElement
+{
+    type: PostContentElementType;
+    index: number;
+}
+
+enum PostContentElementType
+{
+    Text,
+    Image
+}
 
 export default Post;
