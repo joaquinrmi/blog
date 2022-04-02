@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route, Link, useParams } from "react-router-dom";
 import Navbar, { Section } from "./components/navbar";
 import Post from "./components/post";
@@ -12,16 +12,46 @@ export interface Props
 
 const Public: React.FunctionComponent<Props> = (props) =>
 {
-    const [ sections, setSection ] = useState<Array<Section>>([
+    const [ loaded, setLoaded ] = useState<boolean>(false);
+    const [ categories, setCategories ] = useState<Array<Category>>([]);
+
+    useEffect(() =>
+    {
+        const path = `${process.env.REACT_APP_SERVER}/api/post/tag-list`;
+
+        (async () =>
+        {
+            const res = await fetch(path, {
+                method: "GET"
+            });
+
+            if(res.status === 200)
+            {
+                const data = await res.json();
+
+                setCategories(data);
+                setLoaded(true);
+            }
+            else
+            {
+                setLoaded(true);
+            }
+        })();
+    },
+    []);
+
+    if(!loaded)
+    {
+        return <></>;
+    }
+
+    const sections: Array<Section> = [
         {
             name: "Inicio",
             path: ""
         },
-        {
-            name: "Animales",
-            path: "animals"
-        }
-    ]);
+        ...categories.map((category) => ({ name: category.name, path: category.tag }))
+    ];
 
     return <>
         <Navbar sections={sections} currentSection="/" />
@@ -112,6 +142,13 @@ const Public: React.FunctionComponent<Props> = (props) =>
         </footer>
     </>;
 };
+
+interface Category
+{
+    tag: string;
+    name: string;
+    count: number;
+}
 
 const ShowPost: React.FunctionComponent = () =>
 {
