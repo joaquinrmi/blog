@@ -135,7 +135,7 @@ const CreatePost: React.FunctionComponent<Props> = (props) =>
             }) : undefined} />
         </div>
 
-        <PostContentEditor id="new-post-content" content={props.postData ? props.postData.contet : undefined} gallery={props.postData ? props.postData.gallery : undefined} galleryPosition={props.postData ? props.postData.galleryPosition : undefined} />
+        <PostContentEditor id="new-post-content" content={props.postData ? props.postData.content : undefined} gallery={props.postData ? props.postData.gallery : undefined} galleryPosition={props.postData ? props.postData.galleryPosition : undefined} />
 
         <div id="new-post-create-button" className="new-post-create-button" role="button">
             Publicar
