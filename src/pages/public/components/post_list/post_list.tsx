@@ -79,7 +79,7 @@ const PostList: React.FunctionComponent<Props> = (props) =>
             }
         );
     },
-    [ page.current ]);
+    [ props, page.current ]);
 
     let content;
     if(postDataList.length === 0)
