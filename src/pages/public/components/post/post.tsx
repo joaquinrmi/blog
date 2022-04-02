@@ -34,35 +34,36 @@ const Post: React.FunctionComponent<Props> = (props) =>
 
     useEffect(() =>
     {
-        if(status.loaded)
-        {
-            return;
-        }
+        const path = `${process.env.REACT_APP_SERVER}/api/post/get-single/?postId=${props.postId}`;
 
-        setTimeout(() =>
+        fetch(path, {
+            method: "GET"
+        })
+        .then(res =>
+        {
+            if(res.status === 200)
+            {
+                return res.json();
+            }
+        })
+        .then(data =>
         {
             setStatus({
                 loaded: true,
                 data: {
-                    id: "",
-                    title: "Título",
-                    dateCreated: new Date(),
-                    tags: [
-                        { name: "Animales", tag: "animals" },
-                        { name: "Ciencia", tag: "science" }
-                    ],
-                    content: [
-                        "Lorem ipsum dolor sit amet consectetur adipisicing elit. In expedita ducimus quia illum aspernatur, recusandae delectus, doloribus veritatis ullam placeat voluptas accusamus aliquam nisi? Laboriosam perferendis nisi asperiores laudantium eligendi!",
-                        "Lorem ipsum dolor sit amet consectetur adipisicing elit. In expedita ducimus quia illum aspernatur, recusandae delectus, doloribus veritatis ullam placeat voluptas accusamus aliquam nisi? Laboriosam perferendis nisi asperiores laudantium eligendi!"
-                    ],
-                    cover: "https://unamglobal.unam.mx/wp-content/uploads/2021/02/ballena-azul-portada.jpg",
-                    gallery: [],
-                    galleryPosition: []
+                    id: data.id,
+                    title: data.title,
+                    dateCreated: new Date(data.dateCreated),
+                    tags: data.tags,
+                    content: data.content,
+                    cover: data.cover,
+                    gallery: data.gallery,
+                    galleryPosition: data.galleryPosition
                 }
             });
-        },
-        2000)
-    });
+        });
+    },
+    []);
 
     let content: any;
     if(status.loaded && status.data)
@@ -71,7 +72,7 @@ const Post: React.FunctionComponent<Props> = (props) =>
             <div className="post-header">
                 <span className="post-date">
                     {status.data.dateCreated.getDate()}/
-                    {status.data.dateCreated.getMonth()}/
+                    {status.data.dateCreated.getMonth() + 1}/
                     {status.data.dateCreated.getFullYear()}
                 </span>
 
