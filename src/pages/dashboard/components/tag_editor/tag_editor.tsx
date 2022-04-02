@@ -10,7 +10,7 @@ export interface Props
 
 export interface TagEditorElement extends HTMLDivElement
 {
-    getTags(): Array<string>;
+    getTags(): Array<TagData>;
 }
 
 const TagEditor: React.FunctionComponent<Props> = (props) =>
@@ -69,10 +69,7 @@ const TagEditor: React.FunctionComponent<Props> = (props) =>
         
         element.getTags = () =>
         {
-            return tags.map(tag =>
-            {
-                return tag.tag;
-            });
+            return [ ...tags ];
         };
     });
 
