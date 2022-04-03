@@ -192,6 +192,12 @@
         box-sizing: border-box;
         background-color: #fff;
 
+        form
+        {
+            display: flex;
+            flex-direction: column;
+        }
+
         .search-input
         {
             flex: 1 1 100%;
@@ -203,6 +209,11 @@
         .search-input:focus
         {
             outline: none;
+        }
+
+        .search-submit
+        {
+            display: none;
         }
     }
 }

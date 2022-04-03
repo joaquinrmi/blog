@@ -57,10 +57,13 @@ const Navbar: React.FunctionComponent<Props> = (props) =>
 
         const searchButton = document.getElementById("nav-search-button") as HTMLDivElement;
         const searchModal = document.getElementById("search-modal") as ModalElement;
+        
+        const searchInput = document.getElementById("search-input") as HTMLInputElement;
 
         searchButton.onclick = () =>
         {
             searchModal.open();
+            searchInput.focus();
         };
 
         const closeSearchModal = () =>
@@ -80,6 +83,17 @@ const Navbar: React.FunctionComponent<Props> = (props) =>
             if(ev.target === searchModal)
             {
                 closeSearchModal();
+            }
+        };
+
+        const searchSubmit = document.getElementById("search-submit") as HTMLLinkElement;
+
+        searchInput.onkeyup = ev =>
+        {
+            if(ev.key === "Enter")
+            {
+                searchSubmit.href = `/search/${searchInput.value}`
+                searchSubmit.click();
             }
         };
     });
@@ -125,7 +139,8 @@ const Navbar: React.FunctionComponent<Props> = (props) =>
 
         <Modal id="search-modal" className="search-modal">
             <div className="modal-body">
-                <input type="text" className="search-input" placeholder="Buscar..." />
+                <input id="search-input" className="search-input" type="text" placeholder="Buscar..." />
+                <a id="search-submit" className="search-submit" href="/search/"></a>
             </div>
         </Modal>
     </nav>;
