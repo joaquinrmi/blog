@@ -80,6 +80,7 @@ const CreatePost: React.FunctionComponent<Props> = (props) =>
             const tags = tagEditor.getTags();
 
             const postForm: PostForm = {
+                postId: props.postId,
                 title: titleInput.value,
                 cover: coverImage.src,
                 content: contentEditor.getContent(),
@@ -128,10 +129,18 @@ const CreatePost: React.FunctionComponent<Props> = (props) =>
                 }
             }
 
-            const createPostPath = `${process.env.REACT_APP_SERVER}/api/post/create`;
+            let url = `${process.env.REACT_APP_SERVER}/api/post/`;
+            if(props.postId)
+            {
+                url += "edit"
+            }
+            else
+            {
+                url += "create"
+            }
 
-            const res = await fetch(createPostPath, {
-                method: "POST",
+            const res = await fetch(url, {
+                method: props.postId ? "PUT" : "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
@@ -143,6 +152,10 @@ const CreatePost: React.FunctionComponent<Props> = (props) =>
             {
                 const postId = (await res.json()).postId;
                 setRedirect(`/admin/dashboard/post/${postId}`);
+            }
+            else if(res.status === 200)
+            {
+                setRedirect(`/admin/dashboard/posts/`);
             }
             else
             {
@@ -216,12 +229,13 @@ const CreatePost: React.FunctionComponent<Props> = (props) =>
 
 interface PostForm
 {
-   title: string;
-   content: Array<string>;
-   cover: string;
-   gallery: Array<string>;
-   galleryPosition: Array<number>;
-   tags: Array<string>;
+    postId?: string;
+    title: string;
+    content: Array<string>;
+    cover: string;
+    gallery: Array<string>;
+    galleryPosition: Array<number>;
+    tags: Array<string>;
 }
 
 export default CreatePost;
