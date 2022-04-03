@@ -83,7 +83,7 @@ const ShowPost: React.FunctionComponent = () =>
 {
     const { postId } = useParams();
 
-    return <></>;
+    return <CreatePost postId={postId} />;
 };
 
 export default Dashboard;
