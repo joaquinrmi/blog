@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { PostData } from "../post";
 
 import "./popular_posts.scss";
 
@@ -17,63 +18,38 @@ const PopularPosts: React.FunctionComponent = () =>
 
     useEffect(() =>
     {
-        if(data.length > 0)
-        {
-            return;
-        }
+        const query = `?offset=0&count=5&orderType=view-count&order=desc`;
+            const url = `${process.env.REACT_APP_SERVER}/api/post/get-list${query}`;
 
-        setTimeout(() =>
-        {
-            setData([
+            (async () =>
+            {
+                const res = await fetch(url, {
+                    method: "GET"
+                });
+
+                if(res.status === 200)
                 {
-                    id: "hola",
-                    title: "Lorem ipsum dolor sit amet",
-                    tags: [
-                        { name: "Animales", path: "animals" },
-                        { name: "Ciencia", path: "science" }
-                    ],
-                    date: new Date()
-                },
-                {
-                    id: "hola",
-                    title: "Lorem ipsum dolor sit amet",
-                    tags: [
-                        { name: "Animales", path: "animals" },
-                        { name: "Ciencia", path: "science" }
-                    ],
-                    date: new Date()
-                },
-                {
-                    id: "hola",
-                    title: "Lorem ipsum dolor sit amet",
-                    tags: [
-                        { name: "Animales", path: "animals" },
-                        { name: "Ciencia", path: "science" }
-                    ],
-                    date: new Date()
-                },
-                {
-                    id: "hola",
-                    title: "Lorem ipsum dolor sit amet",
-                    tags: [
-                        { name: "Animales", path: "animals" },
-                        { name: "Ciencia", path: "science" }
-                    ],
-                    date: new Date()
-                },
-                {
-                    id: "hola",
-                    title: "Lorem ipsum dolor sit amet",
-                    tags: [
-                        { name: "Animales", path: "animals" },
-                        { name: "Ciencia", path: "science" }
-                    ],
-                    date: new Date()
+                    const data = await res.json();
+
+                    setData(
+                        (data.elements as Array<PostData>).map((element) =>
+                        {
+                            return {
+                                id: element.id,
+                                title: element.title,
+                                tags: element.tags.map((tag) => ({ name: tag.name, path: tag.tag })),
+                                date: new Date(element.dateCreated)
+                            };
+                        })
+                    );
                 }
-            ]);
-        },
-        3000);
-    });
+                else
+                {
+                    console.log(res);
+                }
+            })();
+    },
+    []);
 
     let content;
     if(data.length > 0)
