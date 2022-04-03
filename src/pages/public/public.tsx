@@ -112,6 +112,10 @@ const Public: React.FunctionComponent<Props> = (props) =>
                         <Route path="/category/:categoryName" element={
                             <ShowCategory />
                         } />
+
+                        <Route path="/search/:query" element={
+                            <ShowSearch />
+                        } />
                     </Routes>
                 </section>
             </div>
@@ -162,6 +166,13 @@ const ShowCategory: React.FunctionComponent = () =>
     let { categoryName } = useParams();
 
     return <PostList tags={[ categoryName as string ]} />
+};
+
+const ShowSearch: React.FunctionComponent = () =>
+{
+    let { query } = useParams();
+
+    return <PostList wordsInTitle={(query as string).split(" ")} />
 };
 
 export default Public;
