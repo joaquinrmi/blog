@@ -11,6 +11,7 @@ export interface Props
     initOffset?: number;
     startDate?: Date;
     endDate?: Date;
+    wordsInTitle?: Array<string>;
     editMode?: boolean;
 }
 
@@ -28,8 +29,9 @@ const PostList: React.FunctionComponent<Props> = (props) =>
     useEffect(() =>
     {
         const queryTags = props.tags ? `[${props.tags.map(e => `"${e}"`).toString()}]` : "[]";
+        const queryWords = props.wordsInTitle ? `[${props.wordsInTitle.map(e => `"${e}"`).toString()}]` : `[]`;
 
-        const query = `offset=${props.initOffset ? props.initOffset : (page.current - 1) * elementsPerPage}&count=${elementsPerPage}&tags=${queryTags}&order=desc`;
+        const query = `offset=${props.initOffset ? props.initOffset : (page.current - 1) * elementsPerPage}&count=${elementsPerPage}&tags=${queryTags}&order=desc&wordsInTitle=${queryWords}`;
 
         const searchPath = `${process.env.REACT_APP_SERVER}/api/post/get-list/?${query}`;
 
