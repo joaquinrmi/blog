@@ -42,6 +42,15 @@ const Navbar: React.FunctionComponent<Props> = (props) =>
             250);
         };
 
+        const links = document.getElementsByClassName("modal-link");
+        for(let i = 0; i < links.length; ++i)
+        {
+            (links[i] as HTMLLinkElement).onclick = () =>
+            {
+                closeNavigationModal();
+            }
+        }
+
         navigationModal.onclick = (ev) =>
         {
             if(ev.target === navigationModal)
@@ -96,7 +105,8 @@ const Navbar: React.FunctionComponent<Props> = (props) =>
                 searchSubmit.click();
             }
         };
-    });
+    },
+    []);
     
     return <nav className="main-navbar">
         <div className="navigation-container">
@@ -107,7 +117,7 @@ const Navbar: React.FunctionComponent<Props> = (props) =>
             <ul className="navigation-list">
                 {props.sections.map((section, index) =>
                 {
-                    return <NavItem key={`link-${index}`} to={section.path === "" ? "/" : `/category/${section.path}`} className={`navigation-link`}>
+                    return <NavItem key={`link-${index}`} to={section.path === "" ? "/" : `${section.path === "" ? "/" : "/category/"}${section.path}`} className={`navigation-link`}>
                         {section.name}
                     </NavItem>;
                 })}
@@ -129,7 +139,7 @@ const Navbar: React.FunctionComponent<Props> = (props) =>
                 <section>
                     {props.sections.map((section, index) =>
                     {
-                        return <Link key={`m-link-${index}`} className="modal-link" to={section.path}>
+                        return <Link key={`m-link-${index}`} className="modal-link" to={`${section.path === "" ? "/" : "/category/"}${section.path}`}>
                             {section.name}
                         </Link>;
                     })}
