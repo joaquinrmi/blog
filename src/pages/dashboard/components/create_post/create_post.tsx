@@ -10,16 +10,54 @@ import "./create_post.scss";
 
 export interface Props
 {
-    postData?: PostData;
+    postId?: string;
 }
 
 const CreatePost: React.FunctionComponent<Props> = (props) =>
 {
+    const [ postData, setPostData ] = useState<PostData | null>(null);
     const [ redirect, setRedirect ] = useState<string>("");
     const [ errorMessages, setErrorMessages ] = useState<Array<string>>([]);
 
     useEffect(() =>
     {
+        if(props.postId)
+        {
+            const url = `${process.env.REACT_APP_SERVER}/api/post/get-single?postId=${props.postId}`;
+
+            (async () =>
+            {
+                const res = await fetch(url, {
+                    method: "GET"
+                });
+
+                if(res.status === 200)
+                {
+                    const data = await res.json();
+
+                    setPostData({
+                        id: data.id,
+                        title: data.title,
+                        cover: data.cover,
+                        tags: data.tags,
+                        dateCreated: new Date(data.dateCreated),
+                        content: data.content,
+                        gallery: data.gallery,
+                        galleryPosition: data.galleryPosition
+                    });
+                }
+            })();
+        }
+    },
+    [ props ]);
+
+    useEffect(() =>
+    {
+        if(props.postId && postData === null)
+        {
+            return;
+        }
+
         const postButton = document.getElementById("new-post-create-button") as HTMLDivElement;
 
         let uploading = false;
@@ -124,7 +162,14 @@ const CreatePost: React.FunctionComponent<Props> = (props) =>
             }
         };
     },
-    []);
+    [ postData ]);
+
+    if(props.postId && postData === null)
+    {
+        return <div className="create-post-loading">
+            Cargando información...
+        </div>;
+    }
 
     if(redirect)
     {
@@ -146,22 +191,22 @@ const CreatePost: React.FunctionComponent<Props> = (props) =>
         </div>
 
         <div className="new-post-header">
-            <input type="text" id="new-post-title" className="new-post-title" placeholder="Escriba un título" defaultValue={props.postData ? props.postData.title : ""} />
+            <input type="text" id="new-post-title" className="new-post-title" placeholder="Escriba un título" defaultValue={postData ? postData.title : ""} />
 
             <div className="new-post-cover-container">
                 <span>Seleccione una imagen de portada:</span>
 
-                <Imageinput id="new-post-cover" inputClassName="new-post-cover" imageContainerClassName="image-container" imgAlt="Imagen de portada" onChange={uploadImage} initSrc={props.postData ? props.postData.cover : undefined} />
+                <Imageinput id="new-post-cover" inputClassName="new-post-cover" imageContainerClassName="image-container" imgAlt="Imagen de portada" onChange={uploadImage} initSrc={postData ? postData.cover : undefined} />
             </div>
 
-            <TagEditor id="new-post-tag-editor" initTags={props.postData ? props.postData.tags.map(value => {
+            <TagEditor id="new-post-tag-editor" initTags={postData ? postData.tags.map(value => {
                 const splitPath = value.tag.split("/");
 
                 return { tag: splitPath[splitPath.length - 1], name: value.name };
             }) : undefined} />
         </div>
 
-        <PostContentEditor id="new-post-content" content={props.postData ? props.postData.content : undefined} gallery={props.postData ? props.postData.gallery : undefined} galleryPosition={props.postData ? props.postData.galleryPosition : undefined} />
+        <PostContentEditor id="new-post-content" content={postData ? postData.content : undefined} gallery={postData ? postData.gallery : undefined} galleryPosition={postData ? postData.galleryPosition : undefined} />
 
         <div id="new-post-create-button" className="new-post-create-button" role="button">
             Publicar
