@@ -48,6 +48,11 @@ const Post: React.FunctionComponent<Props> = (props) =>
         })
         .then(data =>
         {
+            fetch(`${process.env.REACT_APP_SERVER}/api/post/view?postId=${props.postId}`,
+            {
+                method: "POST"
+            });
+
             setStatus({
                 loaded: true,
                 data: {
@@ -63,7 +68,7 @@ const Post: React.FunctionComponent<Props> = (props) =>
             });
         });
     },
-    []);
+    [ props.postId ]);
 
     let content: any;
     if(status.loaded && status.data)
