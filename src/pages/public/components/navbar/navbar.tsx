@@ -65,12 +65,21 @@ const Navbar: React.FunctionComponent<Props> = (props) =>
         };
 
         const searchButton = document.getElementById("nav-search-button") as HTMLDivElement;
+        const modalSearchButton = document.getElementById("modal-search-button") as HTMLDivElement;
+
         const searchModal = document.getElementById("search-modal") as ModalElement;
         
         const searchInput = document.getElementById("search-input") as HTMLInputElement;
 
         searchButton.onclick = () =>
         {
+            searchModal.open();
+            searchInput.focus();
+        };
+
+        modalSearchButton.onclick = () =>
+        {
+            closeNavigationModal();
             searchModal.open();
             searchInput.focus();
         };
@@ -135,6 +144,10 @@ const Navbar: React.FunctionComponent<Props> = (props) =>
                         <i className="fa-solid fa-xmark"></i>
                     </div>
                 </header>
+
+                <div id="modal-search-button" className="navigation-search" role="button">
+                    <i className="fa-solid fa-magnifying-glass"></i>
+                </div>
 
                 <section>
                     {props.sections.map((section, index) =>
