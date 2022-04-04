@@ -36,12 +36,12 @@ const PostCard: React.FunctionComponent<Props> = (props) =>
             <div className="tags">
                 {props.data.tags.map((tag, index) =>
                 {
-                    return <>
-                        <Link key={`tag-${index}`} to={`/category/${tag.tag}`}>
+                    return <span key={`tag-${index}`}>
+                        <Link to={`/category/${tag.tag}`}>
                             {tag.name}
                         </Link>
-                        {index + 1 < props.data.tags.length ? <span key={`comma-${index}`} className="comma">,</span> : null}
-                    </>;
+                        {index + 1 < props.data.tags.length ? <span className="comma">,</span> : null}
+                    </span>;
                 })}
             </div>
 
