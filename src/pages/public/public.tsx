@@ -69,12 +69,12 @@ const Public: React.FunctionComponent<Props> = (props) =>
                 <aside className="main-left-section">
                     <div className="about-author">
                         <div className="photo-container">
-                            <img src="" alt="" />
+                            <img src="https://avatars.githubusercontent.com/u/28006144?v=4" alt="Avatar de github" />
                         </div>
 
                         <div className="author-information">
                             <span className="name">
-                                Nombre Autor
+                                Joaquín Ruaimi
                             </span>
                             <span className="bio">
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. In expedita ducimus quia illum aspernatur, recusandae delectus, doloribus veritatis ullam placeat voluptas accusamus aliquam nisi? Laboriosam perferendis nisi asperiores laudantium eligendi!
