@@ -50,7 +50,10 @@ const Public: React.FunctionComponent<Props> = (props) =>
             name: "Inicio",
             path: ""
         },
-        ...categories.map((category) => ({ name: category.name, path: category.tag }))
+        ...categories.map((category) => ({ name: category.name, path: category.tag })).sort((a, b) =>
+        {
+            return a.name.localeCompare(b.name);
+        })
     ];
 
     return <>
