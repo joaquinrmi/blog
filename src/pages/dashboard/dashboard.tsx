@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route, Link, useParams } from "react-router-dom";
 import PostList from "../public/components/post_list";
 import SessionContext from "../admin/session_context";
@@ -14,6 +14,17 @@ export interface Props
 
 const Dashboard: React.FunctionComponent<Props> = (props) =>
 {
+    useEffect(() =>
+    {
+        const logoutButton = document.getElementById("dashboard-logout-button") as HTMLDivElement;
+
+        logoutButton.onclick = () =>
+        {
+            props.logout();
+        };
+    },
+    []);
+
     return <div className="dashboard">
         <header className="dashboard-header">
             <div className="header-content">
