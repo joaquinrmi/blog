@@ -67,6 +67,7 @@ const PostList: React.FunctionComponent<Props> = (props) =>
                         title: postData.title,
                         cover: postData.cover,
                         tags: postData.tags,
+                        dateCreated: new Date(postData.dateCreated),
                         contentFragment: postData.content[0].slice(0, 180)
                     };
                 }));
@@ -143,7 +144,7 @@ const PostList: React.FunctionComponent<Props> = (props) =>
             <div className="card-post-container">
                 {postDataList.map((postData, index) =>
                 {
-                    return <PostCard editMode={props.editMode ? true : false} key={`${index}-post`} data={postData} />
+                    return <PostCard key={`${index}-post`} editMode={props.editMode ? true : false} data={postData} />
                 })}
             </div>
 
@@ -237,6 +238,7 @@ const NOTHING_TO_SHOW: PostCardData = {
     title: "",
     cover: "",
     tags: [],
+    dateCreated: new Date(),
     contentFragment: ""
 };
 
