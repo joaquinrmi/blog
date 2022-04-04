@@ -20,7 +20,16 @@ const Dashboard: React.FunctionComponent<Props> = (props) =>
 
         logoutButton.onclick = () =>
         {
-            props.logout();
+            const url = `${process.env.REACT_APP_SERVER}/api/account/logout`;
+
+            fetch(url, {
+                method: "POST",
+                credentials: "include"
+            })
+            .then(res =>
+            {
+                props.logout();
+            });
         };
     },
     []);
