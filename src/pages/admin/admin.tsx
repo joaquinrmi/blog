@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import AccountData from "./account_data";
 import Dashboard from "../dashboard";
@@ -10,10 +10,49 @@ import "./admin.scss";
 
 const Admin: React.FunctionComponent = (props) =>
 {
+    const [ restorSession, setRestoreSession ] = useState<boolean>(true);
+
     const [ sessionData, setSessionData ] = useState<SessionData>({
         logged: false,
         username: ""
     });
+
+    useEffect(() =>
+    {
+        if(!restorSession)
+        {
+            return;
+        }
+
+        const url = `${process.env.REACT_APP_SERVER}/api/account/restore-session`;
+
+        (async () =>
+        {
+            const res = await fetch(url, {
+                method: "POST",
+                credentials: "include"
+            });
+
+            if(res.status === 200)
+            {
+                setRestoreSession(false);
+
+                setSessionData({
+                    logged: true,
+                    username: (await res.json()).alias
+                });
+            }
+            else
+            {
+                setRestoreSession(false);
+            }
+        })();
+    });
+
+    if(restorSession)
+    {
+        return <></>;
+    }
 
     let content;
     if(sessionData.logged)
