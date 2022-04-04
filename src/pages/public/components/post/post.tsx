@@ -118,7 +118,7 @@ const Post: React.FunctionComponent<Props> = (props) =>
                 <div className="post-tags">
                     {data.tags.map((tag, index) =>
                     {
-                        return <Link to={`/category/${tag.tag}`} key={`${index}-tag`} className="post-tag">
+                        return <Link key={`${index}-tag`} to={`/category/${tag.tag}`} className="post-tag">
                             {tag.name}
                         </Link>
                     })}
@@ -135,8 +135,8 @@ const Post: React.FunctionComponent<Props> = (props) =>
                     switch(element.type)
                     {
                     case PostContentElementType.Image:
-                        return <div className="post-image">
-                            <img key={`${index}-content`} src={data.gallery[element.index]} alt="" />
+                        return <div key={`${index}-content`} className="post-image">
+                            <img src={data.gallery[element.index]} alt="" />
                         </div>;
 
                     case PostContentElementType.Text:
@@ -161,7 +161,7 @@ const Post: React.FunctionComponent<Props> = (props) =>
             <div className="loading-content">
                 {[...new Array(10)].map((v, i) =>
                 {
-                    return <span style={{
+                    return <span key={`load-${i}`} style={{
                         width: `${100 - (Math.random() * 10)}%`,
                         marginBottom: i === 4 ? "1em" : 0
                     }}></span>;
