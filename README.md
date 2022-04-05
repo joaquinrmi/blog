@@ -2,6 +2,8 @@
 
 Proyecto de blog front-end desarrollado con Typescript y React y utilizando mi proyecto [Universal Blog](https://github.com/joaquinrmi/universal-blog) como back-end.
 
+[Ver aplicación desplegada](https://blog-jrmi.herokuapp.com/)
+
 ## Capturas
 
 ### Página de inicio
