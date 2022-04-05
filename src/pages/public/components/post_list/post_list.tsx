@@ -76,7 +76,7 @@ const PostList: React.FunctionComponent<Props> = (props) =>
                 {
                     return {
                         current: state.current,
-                        last: data.totalElementCount / elementsPerPage
+                        last: Math.ceil(data.totalElementCount / elementsPerPage)
                     };
                 });
             }
