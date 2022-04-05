@@ -24,7 +24,7 @@ const PostList: React.FunctionComponent<Props> = (props) =>
         last: 1
     });
 
-    const [ elementsPerPage, setElementsPerPage ] = useState(10);
+    const [ elementsPerPage, setElementsPerPage ] = useState(5);
 
     useEffect(() =>
     {
