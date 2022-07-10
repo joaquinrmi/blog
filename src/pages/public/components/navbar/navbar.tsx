@@ -62,6 +62,7 @@ const Navbar: React.FunctionComponent<Props> = (props) =>
             id="navigation-modal"
             className="navigation-modal"
             status={navigationModalStatus}
+            closeAnimationTime={250}
             closeRequest={() =>
             {
                 setNavigationModalStatus(ModalStatus.Closed);
@@ -93,6 +94,7 @@ const Navbar: React.FunctionComponent<Props> = (props) =>
             id="search-modal"
             className="search-modal"
             status={searchModalStatus}
+            closeAnimationTime={250}
             closeRequest={() =>
             {
                 setSearchModalStatus(ModalStatus.Closed);
