@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Modal from "../../../../components/modal/";
+import Modal, { ModalStatus } from "../../../../components/modal/";
 import NavItem from "../../../../components/nav_item/";
 
 import "./navbar.scss";
@@ -19,8 +19,8 @@ export interface Section
 
 const Navbar: React.FunctionComponent<Props> = (props) =>
 {
-    const [ navigationModalOpen, setNavigationModalOpen ] = useState<boolean>(false);
-    const [ searchModalOpen, setSearchModalOpen ] = useState<boolean>(false);
+    const [ navigationModalStatus, setNavigationModalStatus ] = useState<ModalStatus>(ModalStatus.Closed);
+    const [ searchModalStatus, setSearchModalStatus ] = useState<ModalStatus>(ModalStatus.Closed);
     
     return <nav className="main-navbar">
         <div className="navigation-container">
@@ -30,7 +30,7 @@ const Navbar: React.FunctionComponent<Props> = (props) =>
                 role="button"
                 onClick={() =>
                 {
-                    setNavigationModalOpen(true);
+                    setNavigationModalStatus(ModalStatus.Open);
                 }}
             >
                 <i className="fa-solid fa-bars"></i>
@@ -51,7 +51,7 @@ const Navbar: React.FunctionComponent<Props> = (props) =>
                 role="button"
                 onClick={() =>
                 {
-                    setSearchModalOpen(true);
+                    setSearchModalStatus(ModalStatus.Open);
                 }}
             >
                 <i className="fa-solid fa-magnifying-glass"></i>
@@ -61,10 +61,10 @@ const Navbar: React.FunctionComponent<Props> = (props) =>
         <Modal
             id="navigation-modal"
             className="navigation-modal"
-            open={navigationModalOpen}
+            status={navigationModalStatus}
             closeRequest={() =>
             {
-                setNavigationModalOpen(false);
+                setNavigationModalStatus(ModalStatus.Closed);
             }}
         >
             <div className="modal-body">
@@ -92,10 +92,10 @@ const Navbar: React.FunctionComponent<Props> = (props) =>
         <Modal
             id="search-modal"
             className="search-modal"
-            open={searchModalOpen}
+            status={searchModalStatus}
             closeRequest={() =>
             {
-                setSearchModalOpen(false);
+                setSearchModalStatus(ModalStatus.Closed);
             }}
         >
             <div className="modal-body">
