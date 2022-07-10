@@ -7,6 +7,8 @@ export interface Props
     id: string;
     className?: string;
     open?: boolean;
+
+    closeRequest(): void;
 }
 
 export interface ModalElement extends HTMLDivElement
