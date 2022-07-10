@@ -58,6 +58,31 @@ const Modal: React.FunctionComponent<Props> = (props) =>
         };
     });
 
+    useEffect(() =>
+    {
+        if(props.status === ModalStatus.Closing)
+        {
+            const modal = document.getElementById(props.id) as HTMLDivElement;
+
+            if(modal === null)
+            {
+                return;
+            }
+
+            modal.classList.remove(ModalStatus.Closed);
+            modal.classList.remove(ModalStatus.Open);
+            modal.classList.add(ModalStatus.Closing);
+
+            setTimeout(
+                () =>
+                {
+                    props.closeRequest();
+                },
+                props.closeAnimationTime || 0
+            );
+        }
+    });
+
     return <div
         id={props.id}
         className={`modal ${props.status} ${props.className}`}
