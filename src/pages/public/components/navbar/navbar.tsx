@@ -70,7 +70,15 @@ const Navbar: React.FunctionComponent<Props> = (props) =>
         >
             <div className="modal-body">
                 <header>
-                    <div id="navigation-close" className="navigation-close" role="button">
+                    <div
+                        id="navigation-close"
+                        className="navigation-close"
+                        role="button"
+                        onClick={() =>
+                        {
+                            setNavigationModalStatus(ModalStatus.Closing);
+                        }}
+                    >
                         <i className="fa-solid fa-xmark"></i>
                     </div>
                 </header>
