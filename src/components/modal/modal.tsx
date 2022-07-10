@@ -6,6 +6,7 @@ export interface Props
 {
     id: string;
     className?: string;
+    open?: boolean;
 }
 
 export interface ModalElement extends HTMLDivElement
@@ -39,7 +40,10 @@ const Modal: React.FunctionComponent<Props> = (props) =>
         };
     });
 
-    return <div id={props.id} className={`modal closed ${props.className}`}>
+    return <div
+        id={props.id}
+        className={`modal ${props.open ? "open" : "close"} ${props.className}`}
+    >
         {props.children}
     </div>;
 };
