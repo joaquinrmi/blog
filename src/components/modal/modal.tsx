@@ -6,9 +6,16 @@ export interface Props
 {
     id: string;
     className?: string;
-    open?: boolean;
+    status: ModalStatus;
 
     closeRequest(): void;
+}
+
+export enum ModalStatus
+{
+    Closed = "closed",
+    Closing = "closing",
+    Open = "open"
 }
 
 const Modal: React.FunctionComponent<Props> = (props) =>
@@ -42,7 +49,7 @@ const Modal: React.FunctionComponent<Props> = (props) =>
 
     return <div
         id={props.id}
-        className={`modal ${props.open ? "open" : "closed"} ${props.className}`}
+        className={`modal ${props.status} ${props.className}`}
     >
         {props.children}
     </div>;
