@@ -11,34 +11,32 @@ export interface Props
     closeRequest(): void;
 }
 
-export interface ModalElement extends HTMLDivElement
-{
-    open(): void;
-    close(): void;
-    isOpen(): boolean;
-}
-
 const Modal: React.FunctionComponent<Props> = (props) =>
 {
     useEffect(() =>
     {
-        const modal = document.getElementById(props.id) as ModalElement;
+        const modal = document.getElementById(props.id) as HTMLDivElement;
 
-        modal.open = () =>
+        if(modal === null)
         {
-            modal.classList.remove("closed");
-            modal.classList.add("open");
+            return;
+        }
+
+        const closeModal = (ev: MouseEvent) =>
+        {
+            if(ev.target !== modal)
+            {
+                return;
+            }
+
+            props.closeRequest();
         };
 
-        modal.close = () =>
-        {
-            modal.classList.remove("open");
-            modal.classList.add("closed");
-        };
+        modal.addEventListener("click", closeModal);
 
-        modal.isOpen = () =>
+        return () =>
         {
-            return modal.classList.contains("open");
+            modal.removeEventListener("click", closeModal);
         };
     });
 
