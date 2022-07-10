@@ -42,7 +42,7 @@ const Modal: React.FunctionComponent<Props> = (props) =>
 
     return <div
         id={props.id}
-        className={`modal ${props.open ? "open" : "close"} ${props.className}`}
+        className={`modal ${props.open ? "open" : "closed"} ${props.className}`}
     >
         {props.children}
     </div>;
