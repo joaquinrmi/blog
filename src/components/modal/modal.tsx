@@ -7,6 +7,7 @@ export interface Props
     id: string;
     className?: string;
     status: ModalStatus;
+    closeAnimationTime?: number;
 
     closeRequest(): void;
 }
@@ -35,8 +36,18 @@ const Modal: React.FunctionComponent<Props> = (props) =>
             {
                 return;
             }
+            
+            modal.classList.remove(ModalStatus.Closed);
+            modal.classList.remove(ModalStatus.Open);
+            modal.classList.add(ModalStatus.Closing);
 
-            props.closeRequest();
+            setTimeout(
+                () =>
+                {
+                    props.closeRequest();
+                },
+                props.closeAnimationTime || 0
+            );
         };
 
         modal.addEventListener("click", closeModal);
