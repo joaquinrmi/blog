@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Modal, { ModalElement } from "../../../../components/modal/";
 import NavItem from "../../../../components/nav_item/";
@@ -19,6 +19,8 @@ export interface Section
 
 const Navbar: React.FunctionComponent<Props> = (props) =>
 {
+    const [ searchModalOpen, setSearchModalOpen ] = useState<boolean>(false);
+
     useEffect(() =>
     {
         const navigationButton = document.getElementById("open-navigation") as HTMLDivElement;
@@ -66,42 +68,18 @@ const Navbar: React.FunctionComponent<Props> = (props) =>
 
         const searchButton = document.getElementById("nav-search-button") as HTMLDivElement;
         const modalSearchButton = document.getElementById("modal-search-button") as HTMLDivElement;
-
-        const searchModal = document.getElementById("search-modal") as ModalElement;
         
         const searchInput = document.getElementById("search-input") as HTMLInputElement;
 
         searchButton.onclick = () =>
         {
-            searchModal.open();
             searchInput.focus();
         };
 
         modalSearchButton.onclick = () =>
         {
             closeNavigationModal();
-            searchModal.open();
             searchInput.focus();
-        };
-
-        const closeSearchModal = () =>
-        {
-            searchModal.classList.remove("opened");
-            searchModal.classList.add("closing");
-            setTimeout(() =>
-            {
-                searchModal.classList.remove("closing");
-                searchModal.classList.add("closed");
-            },
-            250);
-        };
-
-        searchModal.onclick = (ev) =>
-        {
-            if(ev.target === searchModal)
-            {
-                closeSearchModal();
-            }
         };
 
         const searchSubmit = document.getElementById("search-submit") as HTMLLinkElement;
@@ -132,12 +110,25 @@ const Navbar: React.FunctionComponent<Props> = (props) =>
                 })}
             </ul>
 
-            <div id="nav-search-button" className="navigation-search" role="button">
+            <div
+                id="nav-search-button"
+                className="navigation-search"
+                role="button"
+                onClick={() =>
+                {
+                    setSearchModalOpen(true);
+                }}
+            >
                 <i className="fa-solid fa-magnifying-glass"></i>
             </div>
         </div>
 
-        <Modal id="navigation-modal" className="navigation-modal">
+        <Modal
+            id="navigation-modal"
+            className="navigation-modal"
+            closeRequest={() =>
+            {}}
+        >
             <div className="modal-body">
                 <header>
                     <div id="navigation-close" className="navigation-close" role="button">
@@ -160,7 +151,15 @@ const Navbar: React.FunctionComponent<Props> = (props) =>
             </div>
         </Modal>
 
-        <Modal id="search-modal" className="search-modal">
+        <Modal
+            id="search-modal"
+            className="search-modal"
+            open={searchModalOpen}
+            closeRequest={() =>
+            {
+                setSearchModalOpen(false);
+            }}
+        >
             <div className="modal-body">
                 <input id="search-input" className="search-input" type="text" placeholder="Buscar..." />
                 <a id="search-submit" className="search-submit" href="/search/"></a>
