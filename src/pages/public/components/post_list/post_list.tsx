@@ -19,12 +19,13 @@ const PostList: React.FunctionComponent<Props> = (props) =>
 {
     const [ postDataList, setPostDataList ] = useState<Array<PostCardData>>([]);
 
+    const [ loadPage, setLoadPage ] = useState<number>(-1);
     const [ page, setPage ] = useState({
         current: 1,
         last: 1
     });
 
-    const [ elementsPerPage, setElementsPerPage ] = useState(5);
+    const [ elementsPerPage, setElementsPerPage ] = useState(1);
 
     useEffect(() =>
     {
@@ -49,15 +50,20 @@ const PostList: React.FunctionComponent<Props> = (props) =>
                     setPostDataList([
                         { ...NOTHING_TO_SHOW }
                     ]);
+
+                    setLoadPage(-1);
                 }
             }
         ).then(data =>
             {
                 if(data.elements.length === 0)
                 {
-                    return setPostDataList([
+                    setPostDataList([
                         { ...NOTHING_TO_SHOW }
                     ]);
+                    setLoadPage(-1);
+
+                    return;
                 }
 
                 setPostDataList((data.elements as Array<PostData>).map(postData =>
@@ -79,13 +85,15 @@ const PostList: React.FunctionComponent<Props> = (props) =>
                         last: Math.ceil(data.totalElementCount / elementsPerPage)
                     };
                 });
+
+                setLoadPage(-1);
             }
         );
     },
     [ props, page.current ]);
 
     let content;
-    if(postDataList.length === 0)
+    if(postDataList.length === 0 || loadPage !== -1)
     {
         content = <div className="card-post-container">
             {[...new Array(3)].map((v, index) =>
@@ -134,6 +142,8 @@ const PostList: React.FunctionComponent<Props> = (props) =>
 
         const setCurrentPage = (page: number) =>
         {
+            setLoadPage(page);
+
             setPage(state =>
             {
                 return { ...state, current: page };
