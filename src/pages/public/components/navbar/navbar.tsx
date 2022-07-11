@@ -84,7 +84,16 @@ const Navbar: React.FunctionComponent<Props> = (props) =>
                     </div>
                 </header>
 
-                <div id="modal-search-button" className="navigation-search" role="button">
+                <div
+                    id="modal-search-button"
+                    className="navigation-search"
+                    role="button"
+                    onClick={() =>
+                    {
+                        setNavigationModalStatus(ModalStatus.Closing);
+                        setSearchModalStatus(ModalStatus.Open);
+                    }}
+                >
                     <i className="fa-solid fa-magnifying-glass"></i>
                 </div>
 
