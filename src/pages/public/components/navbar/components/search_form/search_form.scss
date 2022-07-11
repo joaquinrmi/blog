@@ -1,0 +1,29 @@
+.search-form
+{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    .search-input
+    {
+        flex: 1 1 100%;
+        border: none;
+        font-size: 1.5em;
+        color:rgb(30, 30, 30);
+    }
+
+    .search-input:focus
+    {
+        outline: none;
+    }
+
+    .search-submit
+    {
+        display: none;
+    }
+
+    .invisible
+    {
+        display: none;
+    }
+}
