@@ -77,7 +77,7 @@ const Public: React.FunctionComponent<Props> = (props) =>
                                 Joaquín Ruaimi
                             </span>
                             <span className="bio">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. In expedita ducimus quia illum aspernatur, recusandae delectus, doloribus veritatis ullam placeat voluptas accusamus aliquam nisi? Laboriosam perferendis nisi asperiores laudantium eligendi!
+                                ¡Hola! Me llamo Joaquín y este es un pequeño proyecto de blog que desarrollé con fines didácticos.
                             </span>
                         </div>
                     </div>
