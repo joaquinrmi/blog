@@ -196,30 +196,6 @@
         padding: 2em;
         box-sizing: border-box;
         background-color: #fff;
-
-        form
-        {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .search-input
-        {
-            flex: 1 1 100%;
-            border: none;
-            font-size: 1.5em;
-            color:rgb(30, 30, 30);
-        }
-
-        .search-input:focus
-        {
-            outline: none;
-        }
-
-        .search-submit
-        {
-            display: none;
-        }
     }
 }
 

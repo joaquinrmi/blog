@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Modal, { ModalStatus } from "../../../../components/modal/";
 import NavItem from "../../../../components/nav_item/";
+import SearchForm from "./components/search_form";
 
 import "./navbar.scss";
 
@@ -109,8 +110,12 @@ const Navbar: React.FunctionComponent<Props> = (props) =>
             }}
         >
             <div className="modal-body">
-                <input id="search-input" className="search-input" type="text" placeholder="Buscar..." />
-                <a id="search-submit" className="search-submit" href="/search/"></a>
+                <SearchForm
+                    onSubmit={() =>
+                    {
+                        setSearchModalStatus(ModalStatus.Closing);
+                    }}
+                />
             </div>
         </Modal>
     </nav>;
